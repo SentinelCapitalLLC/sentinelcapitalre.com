@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio • Commercial • Sentinel Capital</title>
+   <!-- FAVICONS -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/sent_lighthouse.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/sent_lighthouse.png">
+  <link rel="shortcut icon" href="assets/sent_lighthouse.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/sent_lighthouse.png">
+  <link rel="mask-icon" href="assets/sent_lighthouse.png" color="#34695e">
+  <meta name="msapplication-TileColor" content="#34695e">
+  <meta name="theme-color" content="#34695e">
+  <!-- /FAVICONS -->
+
+  <!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300..900&display=swap" rel="stylesheet">
+<style>
+  /* Self-hosted Open Sauce Heavy (place files in assets/fonts/opensauce/) */
+  @font-face{
+    font-family:"Open Sauce Heavy";
+    src:
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff2") format("woff2"),
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff") format("woff");
+    font-weight:800;
+    font-style:normal;
+    font-display:swap;
+  }
+
+  :root{
+    --font-title: "Open Sauce Heavy","Open Sauce Sans","Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --font-body:  "Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  }
+
+  html,body{font-family:var(--font-body)}
+  h1,h2,h3,.title,.logo-text{font-family:var(--font-title); letter-spacing:.02em}
+</style>
+
+
+
+  <style>
+    /* ===== Sentinel light theme (match Partners) ===== */
+    :root{
+      --bg:#ffffff;
+      --bg-soft:#f8f8f8;
+      --card:#616161;     /* dark card panels */
+      --text:#000000;     /* body text */
+      --muted:#c0c0c0;    /* subdued text on dark */
+      --accent:#34695e;   /* green */
+      --max:1200px;
+    }
+
+    
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+    /* ===== Header / Nav (IDENTICAL to Partners) ===== */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(43,43,47,.95), rgba(43,43,47,.75));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar .inner{
+      width:100%; max-width:var(--max); padding:0 20px;
+      display:flex; align-items:center; justify-content:space-between; position:relative;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.12em}
+    .mark{width:50px;height:50px;border-radius:50%;background:url('assets/sent_lighthouse.png') center/contain no-repeat}
+
+    .nav{display:flex; align-items:center; gap:22px; font-size:.95rem; text-transform:uppercase; letter-spacing:.08em}
+    .nav > li{list-style:none; position:relative}
+    .nav > li > a, .nav > li > button{
+      background:none; border:0; color:#fff; font:inherit; text-transform:inherit; letter-spacing:inherit;
+      padding:10px 6px; cursor:pointer; display:flex; align-items:center; gap:6px;
+    }
+    .caret{display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fff; margin-top:2px; transition:transform .15s ease;}
+    .dropdown{
+      position:absolute; top:100%; left:0; min-width:220px; background:rgba(26,26,28,.98);
+      border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:8px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none;
+    }
+    .dropdown a{display:flex; align-items:center; gap:8px; padding:10px 10px; border-radius:8px; color:#fff}
+    .has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown{display:block}
+    .has-sub:hover > button .caret, .has-sub[aria-expanded="true"] > button .caret{transform:rotate(180deg)}
+
+    .menu-btn{
+      display:none; font-size:14px; padding:8px 10px;
+      border:1px solid rgba(255,255,255,.25); border-radius:8px; background:transparent; color:#fff
+    }
+    @media (max-width:900px){
+      .menu-btn{display:block}
+      .nav-wrap{position:absolute; top:64px; left:0; right:0; display:none; background:rgba(18,18,20,.98); border-bottom:1px solid rgba(255,255,255,.08);}
+      .nav{flex-direction:column; align-items:stretch; gap:0; padding:10px 16px;}
+      .nav > li > a, .nav > li > button{padding:12px 6px; width:100%; justify-content:space-between}
+      .dropdown{position:static; display:none; margin:6px 0 10px 0; background:rgba(22,22,24,.98);}
+      .dropdown a{padding:10px 12px}
+      .nav-wrap.open{display:block}
+      .has-sub.open > .dropdown{display:block}
+    }
+    /* Solid dark top bar (match footer) */
+.topbar{
+  position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  backdrop-filter:none !important; /* kill any blur/translucency */
+}
+
+/* Keep layout the same */
+.topbar .inner{
+  width:100%; max-width:1200px; padding:0 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+/* Ensure nav is white on the dark bar */
+.nav > li > a,
+.nav > li > button{ color:#fff; }
+.caret{ border-top-color:#fff; }
+
+
+    /* ===== Hero ===== */
+    .hero--portfolio{
+      background:url('assets/SQFT-8383.jpg') center/cover no-repeat;
+      position:relative; height:46vh; min-height:360px; margin-top:64px;
+      display:grid; place-items:center;
+    }
+    .hero--portfolio::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
+    .hero__content{position:relative;text-align:center}
+    .hero__eyebrow{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:1.5rem}
+    .hero__title{font-size:3.2rem;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 0;color:#fff}
+
+    /* ===== Section & Intro ===== */
+    .section{padding:72px 0}
+    .portfolio-wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    .portfolio-intro{
+      max-width:900px;margin:0 auto 28px; line-height:1.7; text-align:center;
+      color:var(--text);
+    }
+
+    /* ===== Grid tiles ===== */
+    .portfolio-grid{
+      display:grid; grid-template-columns:repeat(12,1fr); gap:16px;
+    }
+    .tile{
+      grid-column:span 4;
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px; overflow:hidden; position:relative;
+      opacity:0; transform:translateY(28px);
+      transition:opacity 2.0s ease, transform 2.0s ease;
+    }
+    .tile.visible{opacity:1; transform:translateY(0)}
+    .tile.large{grid-column:span 8}
+
+    .thumb{aspect-ratio:16/10; position:relative; overflow:hidden; background:#0c0c0f}
+    .tile.tall .thumb{aspect-ratio:3/4}
+    .thumb img{
+      width:100%; height:100%; object-fit:cover;
+      filter:grayscale(100%); transform:scale(1.04);
+      transition:filter .35s ease, transform .35s ease, opacity .35s ease;
+    }
+    .tile:hover .thumb img{filter:grayscale(0%); transform:scale(1.07)}
+
+    .badge{
+      position:absolute; left:12px; top:12px;
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:999px; padding:6px 10px;
+      font-size:.78rem; letter-spacing:.06em; color:#fff;
+    }
+
+    .tile .body{padding:14px 16px 16px}
+    .tile h3{margin:.2rem 0 .35rem; color:#fff}
+    .tile .addr{color:var(--muted); font-size:.9rem}
+    .cta-row{display:flex; gap:10px; margin-top:10px}
+    .cta-mini{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--accent); border-radius:10px; padding:8px 12px; font-weight:700;
+      transition:all .25s ease; color:#fff; /* readable on dark card */
+    }
+    .cta-mini:hover{background:var(--accent); color:#fff; transform:translateY(-2px); box-shadow:0 8px 22px rgba(228, 228, 228, 0.35)}
+
+    @media (max-width:1100px){
+      .tile{grid-column:span 6}
+      .tile.large{grid-column:span 12}
+    }
+    @media (max-width:700px){
+      .portfolio-grid{grid-template-columns:repeat(6,1fr)}
+      .tile, .tile.large{grid-column:span 6}
+    }
+
+    /* --- Mobile footer fixes (no desktop changes) --- */
+@media (max-width: 700px){
+  .footer-grid{
+    grid-template-columns: 1fr;   /* stack columns */
+    gap: 18px;
+  }
+
+  .footer-logo{ width:48px; height:48px; }  /* small icon */
+  .site-footer .container{ padding: 0 16px; }
+
+  /* let long text wrap */
+  .contact-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .site-footer a, .site-footer li, .site-footer p{
+    overflow-wrap:anywhere; word-break:break-word;
+  }
+
+  .footer-bottom{
+    flex-direction:column; align-items:flex-start; gap:8px;
+  }
+}
+
+
+    /* ===== Footer (IDENTICAL to Partners) ===== */
+    .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden;}
+    .site-footer::before{content:""; position:absolute; inset:0; background-image:url('assets/sentinel_logo_1.png'); background-repeat:no-repeat; background-position:92% 20%; background-size:340px; opacity:.06; filter:grayscale(100%); pointer-events:none;}
+    .footer-grid{display:grid; gap:32px; grid-template-columns:1.2fr 1fr 1fr; align-items:start; position:relative; z-index:1;}
+    .footer-brand h4{margin:.4rem 0 .2rem; font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; color:#fff;}
+    .footer-tag{margin:0 0 .8rem; color:var(--muted)}
+    .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sentineGREENLOGOtransparent.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
+    .footer-contact{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+    .contact-row{display:inline-flex; align-items:center; gap:10px; color:#d7d7d7; opacity:.95;}
+    .contact-row:hover{opacity:1}
+    .contact-row svg{width:18px; height:18px; fill:currentColor; opacity:.95}
+    .footer-col h5{margin:.2rem 0 .6rem; font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:#fff;}
+    .footer-list{list-style:none; margin:0 0 12px 0; padding:0}
+    .footer-list li{margin:.25rem 0}
+    .footer-links{list-style:none; padding:0; margin:0}
+    .footer-links li{margin:.35rem 0}
+    .footer-links a{color:#d7d7d7}
+    .footer-links a:hover{color:#fff}
+    .social{display:flex; gap:10px; margin-top:12px}
+    .social a{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.22); transition:transform .2s ease, background .2s ease, border-color .2s ease;}
+    .social a:hover{transform:translateY(-2px); background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
+    .social svg{width:18px; height:18px; fill:#fff; opacity:.95}
+    .footer-bottom{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; gap:12px; color:#c9c9c9;}
+    .footer-bottom .dev a{color:#34695e; font-weight:800}
+    .footer-bottom .dev a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header (same as Partners) ===== -->
+  <header class="topbar" role="banner">
+    <div class="inner">
+      <a class="brand" href="index.html" aria-label="Sentinel Capital Home">
+        <span class="mark" aria-hidden="true"></span>
+        <img src="assets/sentinelWHITEtransparent.png" alt="Sentinel Capital Logo" style="height:42px; filter:brightness(1.3);">
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav" role="menubar" aria-label="Primary">
+          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="About">
+              <a role="menuitem" href="approach.html">Strategy</a>
+              <a role="menuitem" href="team.html">Team</a>
+              <a role="menuitem" href="press.html">Press</a>
+            </div>
+          </li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="Portfolio">
+              <a role="menuitem" href="portfolio-multifamily.html">Multi-Family</a>
+              <a role="menuitem" href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+
+          <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          <li role="none"><a role="menuitem" href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero--portfolio">
+    <div class="hero__content container">
+      <!-- <div class="hero__eyebrow">Portfolio</div> -->
+      <h1 class="hero__title">Commercial</h1>
+    </div>
+  </section>
+
+  <!-- ===== Grid ===== -->
+  <section class="section">
+    <div class="portfolio-wrap">
+      <p class="portfolio-intro">
+        Industrial, office, retail and mixed-use developments. Browse highlights below; click <strong>View</strong> to open each project page.
+      </p>
+
+      <div class="portfolio-grid">
+        <!-- AllenPlace (featured large) -->
+        <article class="tile large reveal">
+          <div class="thumb">
+            <span class="badge">Allen, TX</span>
+            <img src="assets/allen_place.jpg" alt="Allen Place">
+          </div>
+          <div class="body">
+            <h3>Allen Place</h3>
+            <div class="addr">Allen, TX</div>
+            <div class="addr">102,000 SF • 2016</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-allen-place.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- McKinney Business Park -->
+        <article class="tile reveal" style="transition-delay:.04s">
+          <div class="thumb">
+            <span class="badge">McKinney, TX</span>
+            <img src="assets/mckinney_main.jpg" alt="McKinney Business Park">
+          </div>
+          <div class="body">
+            <h3>McKinney Business Park</h3>
+            <div class="addr">McKinney, TX</div>
+            <div class="addr">200,000 SF • 2020</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-mckinney-business-park.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 1101 & 1301 Allen -->
+        <article class="tile reveal" style="transition-delay:.06s">
+          <div class="thumb">
+            <span class="badge">Allen, TX</span>
+            <img src="assets/11013.jpg" alt="1101 & 1301 Allen">
+          </div>
+          <div class="body">
+            <h3>1101 &amp; 1301 Allen</h3>
+            <div class="addr">Allen, TX</div>
+            <div class="addr">56,838 SF • 1982/1983</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-1101-1301-allen.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Shops on Gosling -->
+        <article class="tile reveal" style="transition-delay:.08s">
+          <div class="thumb">
+            <span class="badge">The Woodlands, TX</span>
+            <img src="assets/CB902460a.JPG" alt="Shops on Gosling">
+          </div>
+          <div class="body">
+            <h3>Shops on Gosling</h3>
+            <div class="addr">The Woodlands, TX</div>
+            <div class="addr">33,000 SF • 2020</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-shops-on-gosling.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Hufsmith Land Development -->
+        <article class="tile reveal" style="transition-delay:.10s">
+          <div class="thumb">
+            <span class="badge">Tomball, TX</span>
+            <img src="assets/08.jpg" alt="Hufsmith Land Development">
+          </div>
+          <div class="body">
+            <h3>Hufsmith Land Development</h3>
+            <div class="addr">Tomball, TX</div>
+            <div class="addr">9.2 acres • 168 units • ~2026</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-hufsmith-land-development.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Hunters Creek Phase II -->
+        <article class="tile reveal" style="transition-delay:.12s">
+          <div class="thumb">
+            <span class="badge">Houston, TX </span>
+            <img src="assets/phase1.jpg" alt="Hunters Creek Phase II Development">
+          </div>
+          <div class="body">
+            <h3>Hunters Creek: Phase II</h3>
+            <div class="addr">Houston, TX </div>
+            <div class="addr">2.88 acres • 65 units • ~2026</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="com-hunters-creek-phase-2.html">View</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" aria-hidden="true"></div>
+        <h4>Sentinel Capital</h4>
+        <p class="footer-tag">Real Estate Investment &amp; Development</p>
+
+        <div class="footer-contact">
+          <a href="mailto:info@sentinelcap.com" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2Zm18 5.05V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4.95l10 6.25 10-6.25Z"/></svg>
+            info@sentinelcap.com
+          </a>
+          <a href="tel:+1-713-547-5100" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.37c1.65.55 3.43.85 5.25.89a1.5 1.5 0 0 1 1.45 1.5v3.28A1.5 1.5 0 0 1 22.1 22C11.3 21.5 2.5 12.7 2 1.9A1.5 1.5 0 0 1 3.5.5H6.8A1.5 1.5 0 0 1 8.3 2c.04 1.82.34 3.6.9 5.25.2.52.08 1.11-.37 1.5l-2.23 2.05Z"/></svg>
+            (713) 547-5100
+          </a>
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5Zm.52 6H2v12h3.5V9.5ZM13 9.3c-2.08 0-3.5 1.14-3.5 3.05V21H13v-6c0-1.01.73-1.69 1.8-1.69 1.02 0 1.7.68 1.7 1.69V21H20v-7.03C20 10.92 18.52 9.3 16.3 9.3 15 9.3 13.94 9.9 13.4 10.8h-.04V9.5H13Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Offices</h5>
+        <ul class="footer-list">
+          <li>20475 State Hwy 249 • Suite 100</li>
+          <li>Houston, TX 77070</li>
+          <li><a href="tel:+1-713-547-5100">(713) 547-5100</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><em>Proudly Texas born, based, and focused.</em></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul class="footer-links">
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="portfolio-multifamily.html">Multi-Family</a></li>
+          <li><a href="portfolio-commercial.html">Commercial</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2025 Sentinel Capital. All rights reserved.</div>
+      <div class="dev">Developed by <a href="https://can-ercan.com/" target="_blank" rel="noopener">Can Ercan</a> </div>
+    </div>
+  </footer>
+  <!-- ===== Scripts (same menu/dropdown behavior as Partners) ===== -->
+  <script>
+    // Mobile menu + dropdowns
+    const menuBtn = document.getElementById('menuBtn');
+    const navWrap = document.getElementById('primaryNav');
+    const subParents = Array.from(document.querySelectorAll('.has-sub'));
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = navWrap.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    subParents.forEach(parent => {
+      const trigger = parent.querySelector('button');
+      trigger?.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          e.preventDefault();
+          const open = parent.classList.toggle('open');
+          parent.setAttribute('aria-expanded', open ? 'true' : 'false');
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navWrap?.contains(e.target) && e.target !== menuBtn && navWrap?.classList.contains('open')) {
+        navWrap.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded','false');
+        subParents.forEach(p => {
+          p.classList.remove('open');
+          p.setAttribute('aria-expanded','false');
+        });
+      }
+    });
+
+    // Reveal-on-scroll backup
+    const io = new IntersectionObserver((es)=>es.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    }),{threshold:.15});
+    document.querySelectorAll('.tile').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

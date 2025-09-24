@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact • Sentinel Capital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <!-- FAVICONS -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/sent_lighthouse.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/sent_lighthouse.png">
+  <link rel="shortcut icon" href="assets/sent_lighthouse.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/sent_lighthouse.png">
+  <link rel="mask-icon" href="assets/sent_lighthouse.png" color="#34695e">
+  <meta name="msapplication-TileColor" content="#34695e">
+  <meta name="theme-color" content="#34695e">
+  <!-- /FAVICONS -->
+
+  <!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300..900&display=swap" rel="stylesheet">
+<style>
+  /* Self-hosted Open Sauce Heavy (place files in assets/fonts/opensauce/) */
+  @font-face{
+    font-family:"Open Sauce Heavy";
+    src:
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff2") format("woff2"),
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff") format("woff");
+    font-weight:800;
+    font-style:normal;
+    font-display:swap;
+  }
+
+  :root{
+    --font-title: "Open Sauce Heavy","Open Sauce Sans","Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --font-body:  "Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  }
+
+  html,body{font-family:var(--font-body)}
+  h1,h2,h3,.title,.logo-text{font-family:var(--font-title); letter-spacing:.02em}
+</style>
+
+
+
+  <!-- Inline theme (matches index) -->
+  <style>
+    :root{
+      --bg:#ffffff;        /* main background  */
+      --bg-soft:#f8f8f8;   /* softer section background */
+      --card:#616161;      /* card background */
+      --text:#000000;      /* default body text */
+      --muted:#c0c0c0;     /* lighter muted text */
+      --accent:#34695e;    /* green accent */
+      --glass:rgba(43,43,47,.7);
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+    /* Header / Nav (same as index) */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:2000;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(43,43,47,.95), rgba(43,43,47,.75));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar .inner{
+      width:100%; max-width:var(--max); padding:0 20px;
+      display:flex; align-items:center; justify-content:space-between; position:relative;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.12em}
+    .mark{width:50px;height:50px;border-radius:50%;background:url('assets/sent_lighthouse.png') center/contain no-repeat}
+
+    .nav{display:flex; align-items:center; gap:22px; font-size:.95rem; text-transform:uppercase; letter-spacing:.08em}
+    .nav > li{list-style:none; position:relative}
+    .nav > li > a, .nav > li > button{
+      background:none; border:0; color:#fff; font:inherit; text-transform:inherit; letter-spacing:inherit;
+      padding:10px 6px; cursor:pointer; display:flex; align-items:center; gap:6px;
+    }
+    .caret{display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fff; margin-top:2px; transition:transform .15s ease;}
+    .dropdown{
+      position:absolute; top:100%; left:0; min-width:220px; background:rgba(26,26,28,.98);
+      border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:8px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none;
+    }
+    .dropdown a{display:flex; align-items:center; gap:8px; padding:10px 10px; border-radius:8px; color:#fff}
+    .has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown{display:block}
+    .has-sub:hover > button .caret, .has-sub[aria-expanded="true"] > button .caret{transform:rotate(180deg)}
+
+    .menu-btn{
+      display:none; font-size:14px; padding:8px 10px;
+      border:1px solid rgba(255,255,255,.25); border-radius:8px; background:transparent; color:#fff
+    }
+    @media (max-width:900px){
+      .menu-btn{display:block}
+      .nav-wrap{position:absolute; top:64px; left:0; right:0; display:none; background:rgba(18,18,20,.98); border-bottom:1px solid rgba(255,255,255,.08);}
+      .nav{flex-direction:column; align-items:stretch; gap:0; padding:10px 16px;}
+      .nav > li > a, .nav > li > button{padding:12px 6px; width:100%; justify-content:space-between}
+      .dropdown{position:static; display:none; margin:6px 0 10px 0; background:rgba(22,22,24,.98);}
+      .dropdown a{padding:10px 12px}
+      .nav-wrap.open{display:block}
+      .has-sub.open > .dropdown{display:block}
+    }
+
+    /* Solid dark top bar (match footer) */
+.topbar{
+  position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  backdrop-filter:none !important; /* kill any blur/translucency */
+}
+
+/* Keep layout the same */
+.topbar .inner{
+  width:100%; max-width:1200px; padding:0 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+/* Ensure nav is white on the dark bar */
+.nav > li > a,
+.nav > li > button{ color:#fff; }
+.caret{ border-top-color:#fff; }
+
+
+    /* Hero */
+    .contact-hero{
+      position:relative; height:44vh; min-height:340px; margin-top:64px;
+      background:url('assets/connect.jpeg') center/cover no-repeat;
+      display:grid; place-items:center; overflow:hidden;
+      filter:brightness(1.0);
+    }
+    .contact-hero::before{
+      content:""; position:absolute; inset:0;
+      /* match index green overlay vibe */
+      background:rgba(0,0,0,0.55);
+    }
+    .contact-hero .hero-inner{
+      position:relative; text-align:left; width:100%; max-width:1200px; padding:0 20px; color:#fff;
+    }
+    .contact-hero .eyebrow{ color:#fff; letter-spacing:.35em; text-transform:uppercase; font-size:1.0rem }
+    .contact-hero h1{ font-size:3.2rem; margin:.35rem 0 0; color:#fff }
+    .contact-hero h1 span{ color:#000; font-style:italic; letter-spacing:.02em }
+
+    /* Split grid */
+    .contact-wrap{
+      --gap: 28px;
+      position:relative; z-index:1;
+      max-width:1200px; margin: -72px auto 90px; padding: 0 20px;
+      display:grid; grid-template-columns: 1.1fr .9fr; gap: var(--gap);
+    }
+
+    /* Glass cards */
+    .glass{
+      background: rgba(20,21,24,.78);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(8px) saturate(120%);
+      color:#e9e9e9;
+    }
+
+    /* Form side */
+    .contact-form{ padding:26px 28px 28px; display:grid; gap:16px }
+    .contact-form .lead{ color:#d9d9d9; line-height:1.7; margin-top:6px }
+    .row-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+
+    .field, .area{
+      width:100%; border:1px solid rgba(255,255,255,.16); border-radius:12px; background:rgba(0,0,0,.25);
+      color:#ffffff; padding:12px 14px; font:inherit; outline:none; transition:border .2s ease, box-shadow .2s ease;
+    }
+    .field::placeholder, .area::placeholder{ color:var(--muted) }
+    .field:focus, .area:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(52,105,94,.28) }
+    .area{ min-height:140px; resize:vertical }
+
+    .send{
+      justify-self:start;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 18px; border-radius:12px; border:none; cursor:pointer;
+      background:var(--accent); color:#fff; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+      box-shadow:0 12px 26px rgba(0,0,0,.35); transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .send:hover{ transform:translateY(-1px); box-shadow:0 16px 30px rgba(0,0,0,.42) }
+
+    /* Contact card */
+    .contact-card{ padding:26px 26px 22px; display:grid; gap:18px; align-content:start }
+    .brandline{ display:flex; align-items:center; gap:12px; }
+    .brandline .mini{
+      width:40px; height:40px; border-radius:50%;
+      background:url('assets/sentineGREENLOGOtransparent.png') center/cover no-repeat;
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+    }
+    .brandline .namestack{ display:flex; flex-direction:column; line-height:1.1; color:#fff }
+    .brandline .namestack .name{ font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:#fff }
+    .brandline .tag{ color:var(--muted); font-size:.8rem; letter-spacing:.14em }
+
+    .info{
+      border-top:1px dashed rgba(255,255,255,.12);
+      padding-top:8px; display:grid; gap:10px;
+    }
+    .info li{
+      list-style:none; display:grid; grid-template-columns:20px 1fr; gap:10px; align-items:start;
+      color:#d9d9d9;
+    }
+    .bullet{
+      width:7px; height:7px; border-radius:50%; background:var(--accent); margin-top:7px;
+      box-shadow:0 0 0 3px rgba(52,105,94,.22);
+    }
+    .muted{ color:var(--muted) }
+
+    .socials{ display:flex; gap:10px; margin-top:6px }
+    .socials a{
+      width:36px; height:36px; display:grid; place-items:center;
+      border-radius:10px; border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04); color:#fff; font-size:.95rem;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .socials a:hover{ transform:translateY(-2px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.22) }
+
+    /* Reveal */
+    .reveal{ opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease }
+    .reveal.show{ opacity:1; transform:translateY(0) }
+
+    /* Footer (theme) */
+    footer{
+      padding:40px 0; color:#c9c9c9;
+      background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+      border-top:1px solid rgba(255,255,255,.1);
+    }
+    /* footer a{color:var(--accent); font-weight:800} */
+    footer a:hover{text-decoration:underline}
+
+    @media (max-width:1000px){
+      .contact-wrap{ grid-template-columns: 1fr; margin-top:-56px }
+    }
+
+    /* --- Mobile footer fixes (no desktop changes) --- */
+@media (max-width: 700px){
+  .footer-grid{
+    grid-template-columns: 1fr;   /* stack columns */
+    gap: 18px;
+  }
+
+  .footer-logo{ width:48px; height:48px; }  /* small icon */
+  .site-footer .container{ padding: 0 16px; }
+
+  /* let long text wrap */
+  .contact-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .site-footer a, .site-footer li, .site-footer p{
+    overflow-wrap:anywhere; word-break:break-word;
+  }
+
+  .footer-bottom{
+    flex-direction:column; align-items:flex-start; gap:8px;
+  }
+}
+
+
+     /* Fancy Footer */
+  .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden;}
+  .site-footer::before{content:""; position:absolute; inset:0; background-image:url('assets/sentinel_logo_1.png'); background-repeat:no-repeat; background-position:92% 20%; background-size:340px; opacity:.06; filter:grayscale(100%); pointer-events:none;}
+  .footer-grid{display:grid; gap:32px; grid-template-columns:1.2fr 1fr 1fr; align-items:start; position:relative; z-index:1;}
+  .footer-brand h4{margin:.4rem 0 .2rem; font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; color:#fff;}
+  .footer-tag{margin:0 0 .8rem; color:var(--muted)}
+  .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sentineGREENLOGOtransparent.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
+  .footer-contact{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+  .contact-row{display:inline-flex; align-items:center; gap:10px; color:#d7d7d7; opacity:.95;}
+  .contact-row:hover{opacity:1}
+  .contact-row svg{width:18px; height:18px; fill:currentColor; opacity:.95}
+  .footer-col h5{margin:.2rem 0 .6rem; font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:#fff;}
+  .footer-list{list-style:none; margin:0 0 12px 0; padding:0}
+  .footer-list li{margin:.25rem 0}
+  .footer-links{list-style:none; padding:0; margin:0}
+  .footer-links li{margin:.35rem 0}
+  .footer-links a{color:#d7d7d7}
+  .footer-links a:hover{color:#fff}
+  .social{display:flex; gap:10px; margin-top:12px}
+  .social a{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.22); transition:transform .2s ease, background .2s ease, border-color .2s ease;}
+  .social a:hover{transform:translateY(-2px); background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
+  .social svg{width:18px; height:18px; fill:#fff; opacity:.95}
+  .footer-bottom{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; gap:12px; color:#c9c9c9;}
+  .footer-bottom .dev a{color:var(--accent); font-weight:800}
+  .footer-bottom .dev a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="topbar" role="banner">
+    <div class="inner">
+      <a class="brand" href="index.html" aria-label="Sentinel Capital Home">
+        <span class="mark" style="width:50px; height:50px;" aria-hidden="true"></span>
+        <img src="assets/sentinelWHITEtransparent.png" alt="Sentinel Capital Logo" style="height:42px; filter:brightness(1.3);">
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav" role="menubar" aria-label="Primary">
+          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="About">
+              <a role="menuitem" href="approach.html">Strategy</a>
+              <a role="menuitem" href="team.html">Team</a>
+              <a role="menuitem" href="press.html">Press</a>
+            </div>
+          </li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="Portfolio">
+              <a role="menuitem" href="portfolio-multifamily.html">Multi-Family</a>
+              <a role="menuitem" href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+
+          <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          <li role="none"><a role="menuitem" href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Get in touch</div>
+      <h1>Contact <span>Us</span></h1>
+    </div>
+  </section>
+
+  <!-- Split content -->
+  <section class="contact-wrap">
+
+    <!-- Left: form -->
+    <form class="contact-form glass reveal" id="contactForm">
+      <div class="eyebrow" style="color:var(--accent); letter-spacing:.3em; text-transform:uppercase; font-size:.8rem">We’d love to hear from you</div>
+      <p class="lead">Send us a message and we’ll get right back to you.</p>
+
+      <div class="row-2">
+        <input class="field" id="first" placeholder="First Name" required />
+        <input class="field" id="last" placeholder="Last Name" required />
+      </div>
+      <div class="row-2">
+        <input class="field" id="email" type="email" placeholder="Email Address" required />
+        <input class="field" id="phone" placeholder="Phone (optional)" />
+      </div>
+      <input class="field" id="subject" placeholder="Subject" required />
+      <textarea class="area" id="message" placeholder="Your message…"></textarea>
+
+      <button class="send" type="submit">Send</button>
+    </form>
+
+    <!-- Right: contact card -->
+    <aside class="contact-card glass reveal" style="transition-delay:.08s">
+      <div class="brandline">
+        <div class="mini"></div>
+        <div class="namestack">
+          <div class="name">Sentinel Capital</div>
+          <div class="tag">Real Estate and Investment</div>
+        </div>
+      </div>
+
+      <ul class="info">
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <div class="muted">Email</div>
+            <a href="mailto:info@sentinelcapital.com" style="color:#fff">info@sentinelcapital.com</a>
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <div class="muted">Houston Office</div>
+            20475 State Hwy 249, Suite 100, Houston TX 77070
+          </div>
+        </li>
+        <li>
+          <span class="bullet"></span>
+          <div>
+            <div class="muted">Phone</div>
+            (713)-547-5100
+          </div>
+        </li>
+      </ul>
+
+      <div>
+  <div class="muted" style="margin-bottom:6px">Follow</div>
+  <div class="socials">
+    <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">in</a>
+    <!-- <a href="#" aria-label="Instagram">IG</a>
+    <a href="#" aria-label="YouTube">▶</a>
+    <a href="#" aria-label="X">X</a> -->
+  </div>
+
+  <!-- Small Map Embed -->
+  <div style="margin-top:16px; border-radius:12px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,.35)">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11076.70690252503!2d-95.5518617!3d29.9555868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c91e5cafffff%3A0x1234567890abcdef!2s20475%20State%20Hwy%20249%2C%20Suite%20100%2C%20Houston%2C%20TX%2077070!5e0!3m2!1sen!2sus!4v1700000000000"
+      width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
+    </aside>
+
+  </section>
+
+   <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" aria-hidden="true"></div>
+        <h4>Sentinel Capital</h4>
+        <p class="footer-tag">Real Estate Investment &amp; Development</p>
+
+        <div class="footer-contact">
+          <a href="mailto:info@sentinelcap.com" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2Zm18 5.05V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4.95l10 6.25 10-6.25Z"/></svg>
+            info@sentinelcap.com
+          </a>
+          <a href="tel:+1-713-547-5100" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.37c1.65.55 3.43.85 5.25.89a1.5 1.5 0 0 1 1.45 1.5v3.28A1.5 1.5 0 0 1 22.1 22C11.3 21.5 2.5 12.7 2 1.9A1.5 1.5 0 0 1 3.5.5H6.8A1.5 1.5 0 0 1 8.3 2c.04 1.82.34 3.6.9 5.25.2.52.08 1.11-.37 1.5l-2.23 2.05Z"/></svg>
+            (713) 547-5100
+          </a>
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5Zm.52 6H2v12h3.5V9.5ZM13 9.3c-2.08 0-3.5 1.14-3.5 3.05V21H13v-6c0-1.01.73-1.69 1.8-1.69 1.02 0 1.7.68 1.7 1.69V21H20v-7.03C20 10.92 18.52 9.3 16.3 9.3 15 9.3 13.94 9.9 13.4 10.8h-.04V9.5H13Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Offices</h5>
+        <ul class="footer-list">
+          <li>20475 State Hwy 249 • Suite 100</li>
+          <li>Houston, TX 77070</li>
+          <li><a href="tel:+1-713-547-5100">(713) 547-5100</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><em>Proudly Texas born, based, and focused.</em></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul class="footer-links">
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="portfolio-multifamily.html">Multi-Family</a></li>
+          <li><a href="portfolio-commercial.html">Commercial</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2025 Sentinel Capital. All rights reserved.</div>
+      <div class="dev">Developed by <a href="https://can-ercan.com/" target="_blank" rel="noopener">Can Ercan</a> </div>
+    </div>
+  </footer>
+
+  <!-- Inline scripts: nav + reveal + mailto -->
+  <script>
+    // Mobile menu + dropdowns
+    const menuBtn = document.getElementById('menuBtn');
+    const navWrap = document.getElementById('primaryNav');
+    const subParents = Array.from(document.querySelectorAll('.has-sub'));
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = navWrap.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    subParents.forEach(parent => {
+      const trigger = parent.querySelector('button');
+      trigger?.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          e.preventDefault();
+          const open = parent.classList.toggle('open');
+          parent.setAttribute('aria-expanded', open ? 'true' : 'false');
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navWrap?.contains(e.target) && e.target !== menuBtn && navWrap?.classList.contains('open')) {
+        navWrap.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded','false');
+        subParents.forEach(p => {
+          p.classList.remove('open');
+          p.setAttribute('aria-expanded','false');
+        });
+      }
+    });
+
+    // Reveal
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.reveal').forEach(el => requestAnimationFrame(() => el.classList.add('show')));
+    });
+
+    // Mailto submit
+    const f = document.getElementById('contactForm');
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name   = `${document.getElementById('first').value} ${document.getElementById('last').value}`.trim();
+      const email  = document.getElementById('email').value;
+      const phone  = document.getElementById('phone').value;
+      const subj   = document.getElementById('subject').value || 'Contact';
+      const body   =
+`Name: ${name}
+Email: ${email}
+Phone: ${phone}
+
+Message:
+${document.getElementById('message').value}`;
+
+      window.location.href = `mailto:info@sentinelcapital.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
+</html>

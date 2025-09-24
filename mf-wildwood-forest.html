@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wildwood Forest • Multi-Family • Sentinel Capital</title>
+
+  <!-- FAVICONS -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/sent_lighthouse.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/sent_lighthouse.png">
+  <link rel="shortcut icon" href="assets/sent_lighthouse.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/sent_lighthouse.png">
+  <link rel="mask-icon" href="assets/sent_lighthouse.png" color="#34695e">
+  <meta name="msapplication-TileColor" content="#34695e">
+  <meta name="theme-color" content="#34695e">
+  <!-- /FAVICONS -->
+
+  <!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300..900&display=swap" rel="stylesheet">
+<style>
+  /* Self-hosted Open Sauce Heavy (place files in assets/fonts/opensauce/) */
+  @font-face{
+    font-family:"Open Sauce Heavy";
+    src:
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff2") format("woff2"),
+      url("assets/fonts/opensauce/OpenSauceSans-Heavy.woff") format("woff");
+    font-weight:800;
+    font-style:normal;
+    font-display:swap;
+  }
+
+  :root{
+    --font-title: "Open Sauce Heavy","Open Sauce Sans","Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --font-body:  "Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  }
+
+  html,body{font-family:var(--font-body)}
+  h1,h2,h3,.title,.logo-text{font-family:var(--font-title); letter-spacing:.02em}
+</style>
+
+
+  <style>
+    /* ===== Sentinel light theme (match portfolio pages) ===== */
+    :root{
+      --bg:#ffffff;
+      --bg-soft:#f8f8f8;
+      --card:#616161;      /* dark card panels */
+      --text:#000000;      /* body text */
+      --muted:#c0c0c0;     /* subdued text on dark */
+      --accent:#34695e;    /* green */
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+    /* ===== Header / Nav (IDENTICAL to portfolio pages) ===== */
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:64px; z-index:2000;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:linear-gradient(180deg, rgba(43,43,47,.95), rgba(43,43,47,.75));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar .inner{
+      width:100%; max-width:var(--max); padding:0 20px;
+      display:flex; align-items:center; justify-content:space-between; position:relative;
+    }
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.12em}
+    .mark{width:50px;height:50px;border-radius:50%;background:url('assets/sent_lighthouse.png') center/contain no-repeat}
+
+    .nav{display:flex; align-items:center; gap:22px; font-size:.95rem; text-transform:uppercase; letter-spacing:.08em}
+    .nav > li{list-style:none; position:relative}
+    .nav > li > a, .nav > li > button{
+      background:none; border:0; color:#fff; font:inherit; text-transform:inherit; letter-spacing:inherit;
+      padding:10px 6px; cursor:pointer; display:flex; align-items:center; gap:6px;
+    }
+    .caret{display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fff; margin-top:2px; transition:transform .15s ease;}
+    .dropdown{
+      position:absolute; top:100%; left:0; min-width:220px; background:rgba(26,26,28,.98);
+      border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:8px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none;
+    }
+    .dropdown a{display:flex; align-items:center; gap:8px; padding:10px 10px; border-radius:8px; color:#fff}
+    .has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown{display:block}
+    .has-sub:hover > button .caret, .has-sub[aria-expanded="true"] > button .caret{transform:rotate(180deg)}
+
+    .menu-btn{
+      display:none; font-size:14px; padding:8px 10px;
+      border:1px solid rgba(255,255,255,.25); border-radius:8px; background:transparent; color:#fff
+    }
+    @media (max-width:900px){
+      .menu-btn{display:block}
+      .nav-wrap{position:absolute; top:64px; left:0; right:0; display:none; background:rgba(18,18,20,.98); border-bottom:1px solid rgba(255,255,255,.08);}
+      .nav{flex-direction:column; align-items:stretch; gap:0; padding:10px 16px;}
+      .nav > li > a, .nav > li > button{padding:12px 6px; width:100%; justify-content:space-between}
+      .dropdown{position:static; display:none; margin:6px 0 10px 0; background:rgba(22,22,24,.98);}
+      .dropdown a{padding:10px 12px}
+      .nav-wrap.open{display:block}
+      .has-sub.open > .dropdown{display:block}
+    }
+
+    /* Solid dark top bar (match footer) */
+.topbar{
+  position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  backdrop-filter:none !important; /* kill any blur/translucency */
+}
+
+/* Keep layout the same */
+.topbar .inner{
+  width:100%; max-width:1200px; padding:0 20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+/* Ensure nav is white on the dark bar */
+.nav > li > a,
+.nav > li > button{ color:#fff; }
+.caret{ border-top-color:#fff; }
+
+    /* ===== Hero (image header) ===== */
+    .hero--property{
+      position:relative; min-height:46vh; margin-top:64px;
+      display:grid; place-items:center; overflow:hidden; background:#000;
+    }
+    .hero--property .hero-bg{position:absolute; inset:0; background:center/cover no-repeat; transform:scale(1.08); filter:brightness(.62); transition:transform 1.2s cubic-bezier(.22,.61,.36,1)}
+    .hero--property.loaded .hero-bg{transform:scale(1)}
+    .hero--property::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.75) 100%)}
+    .hero__panel{position:relative; z-index:2; width:100%; max-width:var(--max); padding:36px 20px 44px; margin:0 auto; display:grid; gap:6px; text-align:center}
+    .hero__eyebrow{color:var(--accent); letter-spacing:.35em; text-transform:uppercase; font-size:1rem; justify-self:center}
+    .hero__title{font-size:3rem; line-height:1.05; letter-spacing:.02em; margin:0; color:#fff}
+    /* .outline{text-shadow:0 0 2px #000,0 0 3px #000,1px 0 #000,-1px 0 #000,0 1px #000,0 -1px #000,1px 1px #000,-1px 1px #000,1px -1px #000,-1px -1px #000} */
+
+    /* Corner nav buttons on hero */
+    .hero-nav{
+      position:absolute; inset:auto 0 10px 0; z-index:3; pointer-events:none;
+      display:flex; align-items:center; justify-content:space-between; width:100%; max-width:var(--max); margin:0 auto; padding:0 20px;
+    }
+    .nav-btn{
+      pointer-events:auto;
+      display:inline-flex; align-items:center; gap:8px; padding:12px 18px;
+      border-radius:999px; font-weight:800; letter-spacing:.06em; color:#fff;
+      border:1px solid rgba(255,255,255,.22); background:rgba(0,0,0,.35);
+      box-shadow:0 10px 22px rgba(0,0,0,.35); transition:transform .18s, background .25s;
+    }
+    .nav-btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.55)}
+    .nav-btn .arrow{font-weight:900; opacity:.9}
+
+    /* ===== Content (white panel) ===== */
+    .section{padding:70px 0}
+    .two-col{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:start}
+    .eyebrow{color:var(--accent); letter-spacing:.22em; text-transform:uppercase; font-size:.85rem}
+    .title{margin:.35rem 0 .3rem}
+    .lead{color:#333}
+
+    /* Facts row */
+    .facts{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:18px 0 8px; padding:0}
+    .facts li{list-style:none; border-left:2px solid rgba(0,0,0,.08); padding-left:12px}
+    .facts li span{display:block; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:#777; margin-bottom:4px}
+    .facts li strong{font-size:1rem}
+
+    /* Media cards on right column */
+    .right-stack{display:grid; gap:18px}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:16px; box-shadow:0 18px 40px rgba(0,0,0,.45)}
+    .photo-card, .map-card{overflow:hidden}
+    .photo-card img{width:100%; display:block; transform:scale(1.02); transition:transform 1s}
+    .photo-card:hover img{transform:scale(1.06)}
+    .map-card iframe{width:100%; height:340px; border:0; display:block}
+
+    /* CTA button */
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 16px; border-radius:12px; font-weight:800; letter-spacing:.06em; border:1px solid var(--accent); color:#fff; background:var(--accent); transition:transform .18s,box-shadow .25s}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 22px rgba(52,105,94,.3)}
+    .btn-row{display:flex; gap:10px; margin-top:12px}
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s,transform .9s}
+    .reveal.visible{opacity:1; transform:translateY(0)}
+
+    .gallery-title {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 16px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    /* ===== Footer (IDENTICAL to portfolio pages) ===== */
+    .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden;}
+    .site-footer::before{content:""; position:absolute; inset:0; background-image:url('assets/sentinel_logo_1.png'); background-repeat:no-repeat; background-position:92% 20%; background-size:340px; opacity:.06; filter:grayscale(100%); pointer-events:none;}
+    .footer-grid{display:grid; gap:32px; grid-template-columns:1.2fr 1fr 1fr; align-items:start; position:relative; z-index:1;}
+    .footer-brand h4{margin:.4rem 0 .2rem; font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; color:#fff;}
+    .footer-tag{margin:0 0 .8rem; color:var(--muted)}
+    .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sentineGREENLOGOtransparent.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
+    .footer-contact{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+    .contact-row{display:inline-flex; align-items:center; gap:10px; color:#d7d7d7; opacity:.95;}
+    .contact-row:hover{opacity:1}
+    .contact-row svg{width:18px; height:18px; fill:currentColor; opacity:.95}
+    .footer-col h5{margin:.2rem 0 .6rem; font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:#fff;}
+    .footer-list{list-style:none; margin:0 0 12px 0; padding:0}
+    .footer-links{list-style:none; padding:0; margin:0}
+    .footer-links li{margin:.35rem 0}
+    .footer-links a{color:#d7d7d7}
+    .footer-links a:hover{color:#fff}
+    .social{display:flex; gap:10px; margin-top:12px}
+    .social a{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.22); transition:transform .2s ease, background .2s ease, border-color .2s ease;}
+    .social a:hover{transform:translateY(-2px); background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
+    .social svg{width:18px; height:18px; fill:#fff; opacity:.95}
+    .footer-bottom{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; gap:12px; color:#c9c9c9;}
+    .footer-bottom .dev a{color:#34695e; font-weight:800}
+    .footer-bottom .dev a:hover{text-decoration:underline}
+
+    @media(max-width:1000px){
+      .hero__title{font-size:2.2rem}
+      .two-col{grid-template-columns:1fr}
+      .facts{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* ===== ADDED: Lightbox minimal styles (only for gallery) ===== */
+    #lightboxModal{
+      display:none; position:fixed; inset:0; z-index:5000;
+      background:rgba(0,0,0,.9); align-items:center; justify-content:center;
+    }
+    #lightboxImg{max-width:90%; max-height:82vh; border-radius:10px}
+    #lightboxClose{
+      position:absolute; top:16px; right:22px; font-size:2rem; color:#fff; cursor:pointer; user-select:none;
+    }
+    .lightbox-nav{
+      position:absolute; top:50%; left:0; right:0;
+      display:flex; justify-content:space-between; padding:0 24px; color:#fff; font-size:2.2rem; user-select:none;
+    }
+    .lightbox-nav span{cursor:pointer}
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="topbar" role="banner">
+    <div class="inner">
+      <a class="brand" href="index.html" aria-label="Sentinel Capital Home">
+        <span class="mark" aria-hidden="true"></span>
+        <img src="assets/sentinelWHITEtransparent.png" alt="Sentinel Capital Logo" style="height:42px; filter:brightness(1.3);">
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav" role="menubar" aria-label="Primary">
+          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="About">
+              <a role="menuitem" href="approach.html">Strategy</a>
+              <a role="menuitem" href="team.html">Team</a>
+              <a role="menuitem" href="press.html">Press</a>
+            </div>
+          </li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="Portfolio">
+              <a role="menuitem" href="portfolio-multifamily.html">Multi-Family</a>
+              <a role="menuitem" href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+
+          <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          <li role="none"><a role="menuitem" href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero--property" id="hero">
+    <!-- Replace with your actual hero image for Wildwood Forest -->
+    <div class="hero-bg" style="background-image:url('assets/wild1.jpg')"></div>
+
+    <!-- Buttons bottom-left / bottom-right -->
+    <div class="hero-nav">
+      <a class="nav-btn" href="portfolio-multifamily.html"><span class="arrow">←</span> Back to Portfolio</a>
+      <!-- Update this to the correct next property page when ready -->
+      <a class="nav-btn" href="mf-dawson-stratford.html">Next Property <span class="arrow">→</span></a>
+    </div>
+
+    <div class="hero__panel">
+      <!-- <div class="hero__eyebrow outline">MULTI-FAMILY</div> -->
+      <h1 class="hero__title outline">Wildwood Forest Apartments</h1>
+    </div>
+  </section>
+
+  <!-- ===== CONTENT ===== -->
+<section class="section">
+  <div class="container two-col">
+
+    <!-- Left column: copy -->
+    <div class="reveal">
+      <div class="eyebrow">Multi-Family Investment</div>
+      <h2 class="title">Wildwood Forest</h2>
+
+      <p class="lead" style="margin:.2rem 0 .6rem">
+        <strong>Investment lead:</strong>
+        Patrick Magliaro &nbsp;|&nbsp;
+        <a href="mailto:Patrick.magliaro@triadre.com">Patrick.magliaro@triadre.com</a>
+      </p>
+
+      <ul class="facts">
+        <li><span>Market</span><strong>The Woodlands, TX</strong></li>
+        <li><span>Size</span><strong>252 Units</strong></li>
+        <li><span>Year Built</span><strong>1997</strong></li>
+        <li><span>Date Acquired</span><strong>January 2025</strong></li>
+      </ul>
+
+      <!-- Property Overview -->
+      <div class="eyebrow" style="margin-top:18px">Property Overview</div>
+
+      <p>
+        <strong>Wildwood Forest</strong> is a superbly located, stabilized asset in The Woodlands
+        with clear opportunities for <strong>value-add creation</strong> proven in the submarket.
+      </p>
+
+      <p>
+        Sourced through proprietary channels, Sentinel will execute both an
+        <em>operational efficiency</em> and <em>renovation value-add</em> business plan —
+        tightening expenses and growing revenues through classic unit rehabs and exterior amenity
+        enhancements.
+      </p>
+
+      <p>
+        The asset and market dynamics support steady <strong>organic rent growth</strong> due to
+        <em>new-supply constraints</em> in this high-barrier-to-entry location and exceptionally strong
+        demographics. Sentinel recognized the area’s robust fundamentals, including a diverse and
+        growing job market and strong population growth. Submarket employment spans
+        <strong>healthcare</strong>, <strong>education</strong>, <strong>energy</strong>,
+        <strong>chemical</strong>, <strong>professional services</strong>, <strong>utilities</strong>,
+        and <strong>transportation &amp; logistics</strong>. Since 2020, submarket population growth
+        has averaged <strong>~5.3% per year</strong>, notably above the MSA, state, and national figures.
+      </p>
+
+      <p>
+        Wildwood’s tenant catchment area includes <strong>Springwoods Village</strong> and
+        <strong>The Woodlands</strong>, driving demand from both affluent townships.
+      </p>
+
+      <div class="btn-row" style="margin-top:20px;">
+        <a class="btn" href="https://www.wildwoodforest.com/" target="_blank" rel="noopener">
+          Visit Property Website
+        </a>
+      </div>
+    </div>
+
+    <!-- Right column: image + map -->
+    <div class="right-stack">
+      <div class="photo-card card reveal" style="transition-delay:.06s">
+        <img src="assets/wild2.jpg" alt="Wildwood Forest exterior">
+      </div>
+
+      <div class="map-card card reveal" style="transition-delay:.12s">
+        <iframe
+          src="https://www.google.com/maps?q=Wildwood%20Forest%20Apartments&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- ===== Gallery ===== -->
+  <section class="section gallery">
+    <div class="container">
+      <h2 class="gallery-title">Gallery</h2>
+      <div class="gallery-grid">
+        <!-- Swap these placeholders with your actual images -->
+        <a href="assets/wild3.jpg" class="lightbox">
+          <img src="assets/wild3.jpg" alt="Wildwood Forest exterior 1">
+        </a>
+        <a href="assets/wild4.jpg" class="lightbox">
+          <img src="assets/wild4.jpg" alt="Wildwood Forest pool">
+        </a>
+        <a href="assets/wild5.jpg" class="lightbox">
+          <img src="assets/wild5.jpg" alt="Wildwood Forest interior 1">
+        </a>
+        <a href="assets/wild6.jpg" class="lightbox">
+          <img src="assets/wild6.jpg" alt="Wildwood Forest amenity space">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox modal (ADDED) -->
+  <div id="lightboxModal" aria-hidden="true">
+    <span id="lightboxClose" aria-label="Close">&times;</span>
+    <div class="lightbox-nav">
+      <span id="prevImg" aria-label="Previous">❮</span>
+      <span id="nextImg" aria-label="Next">❯</span>
+    </div>
+    <img id="lightboxImg" src="" alt="Full size image">
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" aria-hidden="true"></div>
+        <h4>Sentinel Capital</h4>
+        <p class="footer-tag">Real Estate Investment &amp; Development</p>
+
+        <div class="footer-contact">
+          <a href="mailto:info@sentinelcap.com" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2Zm18 5.05V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4.95l10 6.25 10-6.25Z"/></svg>
+            info@sentinelcap.com
+          </a>
+          <a href="tel:+1-713-547-5100" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.37c1.65.55 3.43.85 5.25.89a1.5 1.5 0 0 1 1.45 1.5v3.28A1.5 1.5 0 0 1 22.1 22C11.3 21.5 2.5 12.7 2 1.9A1.5 1.5 0 0 1 3.5.5H6.8A1.5 1.5 0 0 1 8.3 2c.04 1.82.34 3.6.9 5.25.2.52.08 1.11-.37 1.5l-2.23 2.05Z"/></svg>
+            (713) 547-5100
+          </a>
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5Zm.52 6H2v12h3.5V9.5ZM13 9.3c-2.08 0-3.5 1.14-3.5 3.05V21H13v-6c0-1.01.73-1.69 1.8-1.69 1.02 0 1.7.68 1.7 1.69V21H20v-7.03C20 10.92 18.52 9.3 16.3 9.3 15 9.3 13.94 9.9 13.4 10.8h-.04V9.5H13Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Offices</h5>
+        <ul class="footer-list">
+          <li>20475 State Hwy 249 • Suite 100</li>
+          <li>Houston, TX 77070</li>
+          <li><a href="tel:+1-713-547-5100">(713) 547-5100</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><em>Proudly Texas born, based, and focused.</em></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul class="footer-links">
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="portfolio-multifamily.html">Multi-Family</a></li>
+          <li><a href="portfolio-commercial.html">Commercial</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2025 Sentinel Capital. All rights reserved.</div>
+      <div class="dev">Developed by <a href="https://can-ercan.com/" target="_blank" rel="noopener">Can Ercan</a> </div>
+    </div>
+  </footer>
+
+
+  <!-- ===== Scripts ===== -->
+  <script>
+    // Hero load + reveal
+    window.addEventListener('load',()=>document.querySelector('.hero--property')?.classList.add('loaded'));
+
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible'); io.unobserve(e.target);}
+    }),{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Mobile menu + dropdowns
+    const menuBtn=document.getElementById('menuBtn');
+    const navWrap=document.getElementById('primaryNav');
+    const subParents=Array.from(document.querySelectorAll('.has-sub'));
+
+    menuBtn?.addEventListener('click',()=>{
+      const isOpen=navWrap.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    subParents.forEach(parent=>{
+      const trigger=parent.querySelector('button');
+      trigger?.addEventListener('click',(e)=>{
+        if(window.matchMedia('(max-width: 900px)').matches){
+          e.preventDefault();
+          const open=parent.classList.toggle('open');
+          parent.setAttribute('aria-expanded', open ? 'true' : 'false');
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+      });
+    });
+
+    document.addEventListener('click',(e)=>{
+      if(!navWrap?.contains(e.target) && e.target !== menuBtn && navWrap?.classList.contains('open')){
+        navWrap.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded','false');
+        subParents.forEach(p=>{p.classList.remove('open'); p.setAttribute('aria-expanded','false');});
+      }
+    });
+
+    /* ===== Lightbox with prev/next + keyboard ===== */
+    const links = Array.from(document.querySelectorAll('.gallery-grid a.lightbox'));
+    const modal = document.getElementById('lightboxModal');
+    const modalImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('prevImg');
+    const nextBtn = document.getElementById('nextImg');
+    let current = 0;
+
+    function openAt(i){
+      current = i;
+      modalImg.src = links[current].getAttribute('href');
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+    }
+    function close(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    }
+    function next(){
+      current = (current + 1) % links.length;
+      modalImg.src = links[current].getAttribute('href');
+    }
+    function prev(){
+      current = (current - 1 + links.length) % links.length;
+      modalImg.src = links[current].getAttribute('href');
+    }
+
+    links.forEach((a,i)=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        openAt(i);
+      });
+    });
+
+    closeBtn.addEventListener('click', close);
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) close(); // click outside image closes
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      if(modal.style.display === 'flex'){
+        if(e.key === 'Escape') close();
+        if(e.key === 'ArrowRight') next();
+        if(e.key === 'ArrowLeft') prev();
+      }
+    });
+  </script>
+</body>
+</html>

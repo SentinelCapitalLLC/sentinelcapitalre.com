@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team • Sentinel Capital</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Hero */
+    .hero--team{
+      background:url('assets/lux_office_high.jpg') center/cover no-repeat;
+      position:relative; height:56vh; min-height:440px; margin-top:64px; display:grid; place-items:center;
+    }
+    .hero--team::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
+    .hero__content{position:relative;text-align:center}
+    .hero__eyebrow{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:.8rem}
+    .hero__title{font-size:3rem;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 0}
+
+    .section{padding:64px 0}
+    .muted{color:var(--muted)}
+
+    /* ===== Featured cards (reusing your lead-card look) ===== */
+    .featured-lead{padding:64px 0}
+    .lead-wrap{
+      max-width:var(--max); margin:0 auto; padding:0 20px;
+      display:grid; grid-template-columns:repeat(2, minmax(360px,460px)); /* two founder cards side-by-side */
+      gap:56px; align-items:start; justify-content:center;
+    }
+    .lead-card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06);
+      border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.28);
+    }
+    .lead-photo{position:relative; aspect-ratio:4/5; background:#111}
+    .lead-photo img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(0%); transform:scale(1.01); transition:transform .35s ease, filter .35s ease}
+    .lead-card:hover .lead-photo img{transform:scale(1.04)}
+    .lead-band{
+      position:absolute; left:16px; right:16px; bottom:16px;
+      background:var(--accent); color:#fff; border-radius:10px;
+      padding:12px 16px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+      display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px rgba(230,27,35,.35); cursor:pointer; text-decoration:none;
+    }
+    .lead-caption{padding:16px 18px 18px; text-align:center}
+    .lead-caption h4{margin:0 0 6px; font-size:1.25rem}
+    .lead-caption .role{color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:.8rem}
+
+    /* Section headings in body */
+    .group-head{
+      max-width:var(--max); margin:0 auto 18px; padding:0 20px;
+    }
+    .group-eyebrow{color:var(--accent); letter-spacing:.35em; text-transform:uppercase; font-size:.78rem}
+    .group-title{font-size:2rem; margin:.35rem 0 0}
+
+    /* Team grid (unchanged styling) */
+    /* Center all team cards and match founder card sizing */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(360px, 460px)); /* same as founders */
+  gap:56px;                          /* same spacing as founders */
+  justify-content:center;            /* center the grid within the container */
+}
+
+    .card{position:relative;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden}
+    .card .ph{aspect-ratio:4/5;background:#111;position:relative}
+    .card .ph > .img{position:absolute;inset:0;background-position:center;background-size:cover;filter:grayscale(100%);transform:scale(1.02);transition:transform .35s, filter .35s}
+    .card:hover .ph > .img{filter:grayscale(0%);transform:scale(1.06)}
+    .view-band{
+      position:absolute;left:16px;right:16px;bottom:16px;
+      background:var(--accent);color:#fff;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+      padding:12px 16px;border-radius:10px;display:flex;justify-content:center;align-items:center;
+      box-shadow:0 8px 20px rgba(230,27,35,.35); opacity:.95; transition:transform .2s ease, opacity .2s ease;
+    }
+    .card:hover .view-band{transform:translateY(-3px);opacity:1}
+    .card .body{padding:14px 16px 18px}
+
+    @media (max-width:1100px){.lead-wrap{grid-template-columns:1fr}}
+    @media (max-width:1000px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:700px){.team-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <!-- Inline header (About ▾ open + Team active) -->
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="index.html"><span class="mark"></span><span>Sentinel&nbsp;Capital</span></a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+
+          <li class="has-sub">
+            <button aria-haspopup="true" aria-expanded="true">About <span class="caret"></span></button>
+            <div class="dropdown" style="display:block">
+              <a href="approach.html">Approach</a>
+              <a class="active" href="team.html">Team</a>
+              <a href="press.html">Press</a>
+            </div>
+          </li>
+
+          <li class="has-sub">
+            <button aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown">
+              <a href="portfolio-multifamily.html">Multi-Family</a>
+              <a href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+
+          <li><a href="properties.html">Properties</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero--team">
+    <div class="hero__content container">
+      <div class="hero__eyebrow">About</div>
+      <h1 class="hero__title">Our Team</h1>
+      <div class="muted" style="margin-top:.5rem;letter-spacing:.12em">Senior, hands-on, accountable</div>
+    </div>
+  </section>
+
+  <!-- ===== FOUNDERS AND MANAGING DIRECTORS ===== -->
+  <section class="featured-lead">
+    <div class="group-head">
+      <div class="group-eyebrow">01</div>
+      <h2 class="group-title">FOUNDERS AND MANAGING DIRECTORS</h2>
+    </div>
+
+    <div class="lead-wrap">
+      <!-- Founder 1 -->
+      <div class="lead-card">
+        <div class="lead-photo">
+          <img src="assets/greg_nelson.png" alt="Greg Nelson – Founder & Managing Director" />
+          <a class="lead-band" href="team-greg-nelson.html">View Profile</a>
+        </div>
+        <div class="lead-caption">
+          <h4>GREG NELSON</h4>
+          <div class="role">Founder &amp; Managing Director</div>
+        </div>
+      </div>
+
+      <!-- Founder 2 -->
+      <div class="lead-card">
+        <div class="lead-photo">
+          <img src="assets/dusty-wolf.png" alt="Dusty Wolf – Founder & Managing Director" />
+          <a class="lead-band" href="team-dusty-wolf.html">View Profile</a>
+        </div>
+        <div class="lead-caption">
+          <h4>DUSTY WOLF</h4>
+          <div class="role">Founder &amp; Managing Director</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHIEF OFFICERS AND PARTNERS ===== -->
+  <section class="section">
+    <div class="group-head">
+      <div class="group-eyebrow">02</div>
+      <h2 class="group-title">CHIEF OFFICERS AND PARTNERS</h2>
+    </div>
+
+    <div class="container">
+      <div class="team-grid">
+        <a class="card" href="team-patrick-magliaro.html">
+          <div class="ph"><div class="img" style="background-image:url('assets/patrick-magliaro.png')"></div></div>
+          <div class="view-band">View Profile</div>
+          <div class="body">
+            <h3>Patrick Magliaro</h3>
+            <div class="role">Partner &amp; Chief Executive Officer</div>
+            <p class="muted">Capex scopes, GC oversight.</p>
+          </div>
+        </a>
+
+        <a class="card" href="team-nick-gruy.html">
+          <div class="ph"><div class="img" style="background-image:url('assets/nick-gruy.png')"></div></div>
+          <div class="view-band">View Profile</div>
+          <div class="body">
+            <h3>Nick Gruy</h3>
+            <div class="role">Partner &amp; Chief Investment Officer</div>
+            <p class="muted">Accounting, treasury, audits.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACQUISITIONS ===== -->
+  <section class="section">
+    <div class="group-head">
+      <div class="group-eyebrow">03</div>
+      <h2 class="group-title">ACQUISITIONS</h2>
+    </div>
+
+    <div class="container">
+      <div class="team-grid">
+        <a class="card" href="team-jackson-piper.html">
+          <div class="ph"><div class="img" style="background-image:url('assets/jackson-piper.png')"></div></div>
+          <div class="view-band">View Profile</div>
+          <div class="body">
+            <h3>Jackson Piper</h3>
+            <div class="role">Associate Director of Acquisitions</div>
+            <p class="muted">On-site ops, retention, service.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ASSET MANAGEMENT ===== -->
+  <section class="section">
+    <div class="group-head">
+      <div class="group-eyebrow">04</div>
+      <h2 class="group-title">ASSET MANAGEMENT</h2>
+    </div>
+
+    <div class="container">
+      <div class="team-grid">
+        <a class="card" href="team-ashley-hulse.html">
+          <div class="ph"><div class="img" style="background-image:url('assets/ashley-hulse.png')"></div></div>
+          <div class="view-band">View Profile</div>
+          <div class="body">
+            <h3>Ashley Hulse</h3>
+            <div class="role">Vice President</div>
+            <p class="muted">Comms, reporting, LP support.</p>
+          </div>
+        </a>
+
+        <!-- James Kirkpatrick -->
+        <a class="card" href="#">
+          <div class="ph"><div class="img" style="background-image:url('assets/james-kirkpatrick.jpg')"></div></div>
+          <div class="view-band">View Profile</div>
+          <div class="body">
+            <h3>James Kirkpatrick</h3>
+            <div class="role">Assistant Asset Manager</div>
+            <p class="muted">Support for asset ops &amp; reporting.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      © 2025 Sentinel Capital • 20475 State Hwy 249 Suite 100, Houston TX 77070 • All rights reserved • Developed by
+      <a href="https://can-ercan.com/" target="_blank" style="color:var(--accent);font-weight:700">Can Ercan</a>
+    </div>
+  </footer>
+
+  <!-- lightweight nav JS -->
+  <script>
+    const btn = document.getElementById('menuBtn');
+    btn?.addEventListener('click', () => {
+      const wrap = document.getElementById('primaryNav');
+      const open = wrap?.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.querySelectorAll('.has-sub > button').forEach(b => {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = b.getAttribute('aria-expanded') === 'true';
+        b.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        const dd = b.nextElementSibling; if (dd) dd.style.display = expanded ? 'none' : 'block';
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.has-sub > button').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const dd = b.nextElementSibling; if (dd) dd.style.display = 'none';
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.has-sub > button').forEach(b => {
+          b.setAttribute('aria-expanded', 'false');
+          const dd = b.nextElementSibling; if (dd) dd.style.display = 'none';
+        });
+      }
+    });
+  </script>
+  <script src="include.js" defer></script>
+  <script src="nav.js" defer></script>
+</body>
+</html>

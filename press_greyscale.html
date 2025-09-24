@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Press • Sentinel Capital</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .topbar { z-index: 2000 !important; }
+    .dropdown { z-index: 2001; }
+
+    /* --- Hero --- */
+    .hero--press{
+      background:url('assets/news_rand.jpg') center/cover no-repeat;
+      position:relative; height:56vh; min-height:440px; margin-top:64px;
+      display:grid; place-items:center;
+    }
+    .hero--press::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.55)}
+    .hero__content{position:relative;text-align:center}
+    .hero__eyebrow{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:.8rem}
+    .hero__title{font-size:3rem;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 0}
+
+    /* --- Section + animated rows --- */
+    .section{padding:80px 0; position:relative}
+
+    .press-item{
+      display:flex; align-items:center; gap:42px; margin-bottom:96px;
+      opacity:0; transform:translateX(220px);
+      transition:transform 1.6s cubic-bezier(.22,.61,.36,1), opacity 1.6s ease;
+      transition-delay: var(--d, 0ms);
+      will-change: transform, opacity;
+    }
+    .press-item.reverse{ transform:translateX(-220px); }
+    .press-item.visible{ opacity:1; transform:translateX(0); }
+    .press-item.reverse.visible{ transform:translateX(0); }
+
+    /* Stair-step alignment */
+    .press-item.align-left{ justify-content:flex-start; }
+    .press-item.align-left .press-card{ flex:0 0 60%; }
+    .press-item.align-left .press-image{ flex:0 0 35%; }
+
+    .press-item.align-right{ justify-content:flex-end; }
+    .press-item.align-right .press-card{ flex:0 0 60%; order:2; }
+    .press-item.align-right .press-image{ flex:0 0 35%; order:1; }
+
+    /* --- Card + media --- */
+    .press-card{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:22px 24px 24px;
+      box-shadow:0 18px 40px rgba(0,0,0,.45);
+    }
+    .press-card h3{ margin:0 0 8px; font-size:1.45rem; line-height:1.25; }
+    .press-meta{ color:var(--muted); font-size:.85rem; letter-spacing:.02em; margin-bottom:10px; text-transform:uppercase; }
+    .press-card p{ color:var(--muted); line-height:1.65; margin:0 0 14px; }
+    .press-cta{
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--accent); color:#fff; font-weight:800;
+      letter-spacing:.08em; text-transform:uppercase;
+      padding:10px 14px; border-radius:10px;
+      box-shadow:0 10px 22px rgba(230,27,35,.35);
+    }
+
+    .press-image{ border-radius:14px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.45); }
+    .press-image img{
+      width:100%; height:auto; display:block;
+      transform:scale(1.08); opacity:.9;
+      transition:transform 1.6s cubic-bezier(.22,.61,.36,1), opacity 1.6s ease, filter .5s ease;
+      will-change: transform, opacity, filter;
+      filter: grayscale(100%); /* grayscale by default */
+    }
+    .press-item.visible .press-image img{ transform:scale(1); opacity:1; }
+
+    /* Accent line on titles */
+    .press-card h3::before{
+      content:""; display:block; width:42px; height:3px; border-radius:2px;
+      background:var(--accent); margin-bottom:10px; opacity:.9;
+    }
+
+    /* ---------- Grayscale-by-default, color-on-hover (whole row reacts) ---------- */
+    /* Muted text by default */
+    .press-card h3{ color:#cfcfcf; }
+    .press-card p,
+    .press-meta{ color: rgba(255,255,255,.68); }
+
+    /* On hover/focus-within: image colors up; text brightens */
+    .press-item:hover .press-image img,
+    .press-item:focus-within .press-image img{
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+    .press-item:hover .press-card h3,
+    .press-item:focus-within .press-card h3{ color: var(--text); }
+    .press-item:hover .press-card p,
+    .press-item:focus-within .press-card p,
+    .press-item:hover .press-meta,
+    .press-item:focus-within .press-meta{ color: var(--text); }
+    .press-item:hover .press-card h3::before,
+    .press-item:focus-within .press-card h3::before{ opacity: 1; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .press-item{ transition: opacity .3s ease; transform:none !important; }
+      .press-item.visible{ opacity:1; }
+      .press-image img{ transition: filter .2s ease; }
+      .press-card h3, .press-card p, .press-meta{ transition: color .2s ease; }
+    }
+
+    /* --- Responsive --- */
+    @media (max-width:1000px){
+      .press-item,.press-item.reverse{ flex-direction:column; gap:16px; }
+      .press-item,.press-item.reverse{ transform:translateY(40px); }
+      .press-item.visible,.press-item.reverse.visible{ transform:translateY(0); }
+      .press-item.align-left .press-card,
+      .press-item.align-right .press-card,
+      .press-item.align-left .press-image,
+      .press-item.align-right .press-image{
+        flex:1 1 auto; order:unset;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hard-coded header so dropdowns work with nav.js -->
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="index.html"><span class="mark"></span><span>Sentinel&nbsp;Capital</span></a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-sub">
+            <button aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></button>
+            <div class="dropdown">
+              <a href="approach.html">Approach</a>
+              <a href="team.html">Team</a>
+              <a class="active" href="press.html">Press</a>
+            </div>
+          </li>
+          <li class="has-sub">
+            <button aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown">
+              <a href="portfolio-multifamily.html">Multi-Family</a>
+              <a href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+          <li><a href="properties.html">Properties</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero--press">
+    <div class="hero__content container">
+      <div class="hero__eyebrow">About</div>
+      <h1 class="hero__title">Press</h1>
+      <div class="muted" style="margin-top:.5rem;letter-spacing:.12em">News, mentions, and updates</div>
+    </div>
+  </section>
+
+  <!-- Press items (stair-step, animated) -->
+  <section class="section">
+    <div class="container">
+
+      <!-- 1 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>McKinney National Business Park</h3>
+          <div class="press-meta">Lee &amp; Associates DFW • Aug 2018</div>
+          <p>New development for lease at 1650 FM 546, McKinney, TX 75069. Projected size: 107 acres. Phase 1: 1,500,500 SF. The project offers build-to-suit and design-build options…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_mckinney.png" alt="McKinney National Business Park">
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="press-item align-right reverse">
+        <div class="press-card">
+          <h3>Houston Real Estate Developer Lands at McKinney Airport with Property Buy</h3>
+          <div class="press-meta">The Dallas Morning News • Aug 2018</div>
+          <p>A Houston real estate firm with a track record in Collin County purchased land for a project in McKinney. Sentinel Capital, LLC bought a 37-acre tract near the airport…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_mckinney_airport.jpg" alt="McKinney Airport land purchase">
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>Houston Developer to Build New Industrial Park near McKinney, Texas’ Airport</h3>
+          <div class="press-meta">CoStar • Aug 2018</div>
+          <p>After years of developing real estate in northern Dallas suburbs, Greg Nelson and team are readying their next big project: a multi-building industrial park near McKinney National Airport…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_mckinney_industrial.jpg" alt="McKinney project location">
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="press-item align-right reverse">
+        <div class="press-card">
+          <h3>Sentinel Capital Kicks Off 2018 with a 206-Unit Multi-Family Acquisition</h3>
+          <div class="press-meta">LinkedIn • Feb 7, 2018</div>
+          <p>To kick-off 2018, Sentinel Capital acquired the 206-unit Bridgewater Apartments in Tomball, Texas. The closing occurred on January 31, 2018 and expands Sentinel’s multifamily portfolio in Texas…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_bridgewater_main.jpg" alt="Bridgewater Apartments">
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>Real Estate Transactions: Multifamily Investors Add to Houston Portfolios</h3>
+          <div class="press-meta">Houston Chronicle • Aug 11, 2022</div>
+          <p>A partnership between Tranquility Capital, Abundance Equity Partners, and Rubio Investors acquired Bridgewater Apartments, a 206-unit community in Tomball…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_bridgewater_main.jpg" alt="Bridgewater community">
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="press-item align-right reverse">
+        <div class="press-card">
+          <h3>Sentinel Capital and AEDC Break Ground on AllenPlace Office Park</h3>
+          <div class="press-meta">Business Wire • Jan 13, 2015</div>
+          <p>Allen, Texas — In partnership with the Allen Economic Development Corporation, Sentinel Capital broke ground on the first phase of AllenPlace…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_allenplace_aerial.jpg" alt="AllenPlace Aerial">
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>Sentinel Capital Kicks Off AllenPlace</h3>
+          <div class="press-meta">GlobeSt • Jun 3, 2014</div>
+          <p>KONE, a global leader in the elevator and escalator industry, committed as lead tenant for the $26 million first phase of AllenPlace, a 22.5-acre master-planned development…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_allenplace_aerial.jpg" alt="AllenPlace rendering">
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="press-item align-right reverse">
+        <div class="press-card">
+          <h3>Land Under Contract for $80M Office/Industrial Complex in Allen</h3>
+          <div class="press-meta">Sentinel Press Release • May 7, 2014</div>
+          <p>Sentinel Capital, a Houston-based developer and asset manager, contracted 11 acres in two parcels for construction of more than…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_allenplace_aerial.jpg" alt="Allen parcels">
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>New $70 Million Office Park Coming to Allen</h3>
+          <div class="press-meta">Star Local News • May 8, 2013</div>
+          <p>Allen is making room for corporate residents. AllenPlace, a new $70M office park along U.S. 75, will break ground…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_allenplace_aerial.jpg" alt="AllenPlace concept">
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="press-item align-right reverse">
+        <div class="press-card">
+          <h3>City of Allen Building $70M Spec Office Park</h3>
+          <div class="press-meta">Dallas Business Journal • May 3, 2013</div>
+          <p>A rebounding market has one Dallas-area suburb racing to add space for corporate tenants with a city-backed, $70M spec development…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_allenplace_aerial.jpg" alt="City-backed development">
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="press-item align-left">
+        <div class="press-card">
+          <h3>Retrofitting vs. Replacing: Making the Case for Sustainable Improvements</h3>
+          <div class="press-meta">Urban Land • Aug 21, 2023</div>
+          <p>“Eclipse at Oak Lawn,” in the heart of Dallas, showcases how targeted retrofits can deliver a vibrant, active community with sustainable impact…</p>
+          <a class="press-cta" href="#" target="_blank" rel="noopener">Read More</a>
+        </div>
+        <div class="press-image">
+          <img src="assets/press_eclipse_oaklawn.jpg" alt="Eclipse at Oak Lawn">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2025 Sentinel Capital • 20475 State Hwy 249 Suite 100, Houston TX 77070 • All rights reserved •
+      Developed by <a href="https://can-ercan.com/" target="_blank" rel="noopener"><strong>Can Ercan</strong></a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="nav.js" defer></script>
+  <script src="scroll-animations.js" defer></script>
+
+  <!-- Fallback: reveal .press-item even if your global animation script doesn't run -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.startScrollAnimations) {
+        window.startScrollAnimations('.press-item');
+        return;
+      }
+      const items = document.querySelectorAll('.press-item');
+      if (!items.length) return;
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      items.forEach(el => io.observe(el));
+    });
+  </script>
+</body>
+</html>
