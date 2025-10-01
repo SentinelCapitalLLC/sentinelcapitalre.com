@@ -66,6 +66,21 @@
   img{max-width:100%;display:block}
   .container{max-width:var(--max);margin:0 auto;padding:0 20px}
 
+  /* === Booking banner (added) === */
+  body.has-booking-banner{ padding-top:36px; } /* only offsets for the thin banner, not the header */
+  .booking-banner{
+    position:fixed; top:0; left:0; right:0; height:36px;
+    z-index:80;
+    background:#054540; color:#e8fbf8;
+    font:600 14px/36px var(--font-body);
+  }
+  .booking-banner .container{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .booking-banner a{ color:#ffd35a; text-decoration:underline; text-underline-offset:2px; }
+  .booking-banner .cta-right{ color:#ffffff; opacity:.9; }
+  .booking-banner .cta-right:hover{ opacity:1; }
+
   /* Titles use Open Sauce Heavy */
   h1,h2,h3,.title,.logo-text,.cb-title,.stat .num{font-family:var(--font-title); letter-spacing:.02em}
 
@@ -331,7 +346,6 @@
 }
 
 
-  
 
   /* Fancy Footer */
   .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden;}
@@ -362,9 +376,37 @@
   /* STRIPE HELPERS */
   .stripe-white{background:var(--bg) !important;}
   .stripe-soft{background:var(--bg-soft) !important;}
+
+  /* --- Reserve banner overlap fix --- */
+:root { --reserve-banner-h: 36px; } /* banner height */
+
+/* keep banner on very top */
+.reserve-banner{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--reserve-banner-h);
+}
+
+/* push the fixed header below the banner */
+.topbar{
+  top: var(--reserve-banner-h) !important; /* overrides inset/top from earlier rule */
+}
+
   </style>
 </head>
-<body>
+<body class="has-booking-banner">
+  <!-- Booking banner (added, minimal) -->
+  <div class="booking-banner" role="region" aria-label="Booking Calendar Info">
+    <div class="container">
+      <div>
+        <a href="booking.html">Click here</a>
+        to reserve the Deli Area and/or Conference Room at our AllenPlace, 450 Century Parkway location.
+      </div>
+      <a class="cta-right" href="booking.html">Open full page →</a>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="topbar" role="banner">
     <div class="inner">

@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sentinel Capital-Over 40 years of Texas real estate experience</title>
 
+    <!-- SEO Meta Description -->
+  <meta name="description" content="Sentinel Capital RE specializes in multifamily and commercial real estate investments, leveraging over 40 years of Texas market expertise to deliver long-term value.">
+
+  <!-- Open Graph (Social & Google) -->
+  <meta property="og:title" content="Sentinel Capital – Over 40 Years of Texas Real Estate Experience">
+  <meta property="og:description" content="Sentinel Capital RE focuses on multifamily and commercial real estate investments, delivering sustainable growth and long-term value.">
+  <meta property="og:url" content="https://sentinelcapitalre.com">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://sentinelcapitalre.com/assets/sent_lighthouse.png">
+
   <!-- FAVICONS -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/sent_lighthouse.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/sent_lighthouse.png">
@@ -32,15 +42,16 @@
 
   <style>
   :root{
-    --bg:#d8d8d8;
-    --bg-soft:#f4f4f4;     /* a bit lighter for stripes */
-    --card:#979797;
-    --text:#000000;
-    --muted:#c0c0c0;
-    --accent:#34695e;
+    --bg:#ffffff;        /* main background  */
+    --bg-soft:#e6e6e6;   /* softer section background */
+    --card:#979797;      /* card background */
+    --text:#000000;      /* default body text */
+    --muted:#c0c0c0;     /* lighter muted text */
+    --accent:#34695e;    /* green accent */
     --glass:rgba(43,43,47,.7);
     --max:1200px;
 
+    /* Font stacks */
     --font-title: "Open Sauce Heavy","Open Sauce Sans","Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
     --font-body:  "Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   }
@@ -55,19 +66,41 @@
   img{max-width:100%;display:block}
   .container{max-width:var(--max);margin:0 auto;padding:0 20px}
 
+  /* === Booking banner (added) === */
+  body.has-booking-banner{ padding-top:36px; } /* only offsets for the thin banner, not the header */
+  .booking-banner{
+    position:fixed; top:0; left:0; right:0; height:36px;
+    z-index:80;
+    background:#054540; color:#e8fbf8;
+    font:600 14px/36px var(--font-body);
+  }
+  .booking-banner .container{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .booking-banner a{ color:#ffd35a; text-decoration:underline; text-underline-offset:2px; }
+  .booking-banner .cta-right{ color:#ffffff; opacity:.9; }
+  .booking-banner .cta-right:hover{ opacity:1; }
+
+  /* Titles use Open Sauce Heavy */
   h1,h2,h3,.title,.logo-text,.cb-title,.stat .num{font-family:var(--font-title); letter-spacing:.02em}
 
-  /* Alternating stripes */
-  .stripe-white{background:#fff;}
-  .stripe-gray{background:var(--bg-soft);}
+  /* ====== Title color system ====== */
+  .title{ color:#000; } /* base: black */
+  .title .accent-green{ color:var(--accent); font-weight:900; }
+  .title .accent-white{ color:#fff; font-weight:900; }
+  .cb-title{ color:#fff; font-weight:900; }
 
-  /* Header */
+  /* generic accent helper */
+  .accent-green{ color:var(--accent); }
+  .person h3 .accent-green{ color:var(--accent); }
+
+  /* Top nav (global header) — solid dark like footer */
   .topbar{
     position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
     display:flex; align-items:center; justify-content:center;
-    backdrop-filter:saturate(120%) blur(8px);
-    background:linear-gradient(180deg, rgba(43,43,47,.95), rgba(43,43,47,.75));
-    border-bottom:1px solid rgba(255,255,255,.08);
+    /* backdrop-filter removed to avoid translucency */
+    background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+    border-bottom:1px solid rgba(255,255,255,.1);
   }
   .topbar .inner{
     width:100%; max-width:var(--max); padding:0 20px;
@@ -76,6 +109,7 @@
   .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.12em}
   .brand .mark{width:50px; height:50px; border-radius:50%; background:url('assets/sent_lighthouse.png') center/contain no-repeat}
 
+  /* Primary nav with dropdowns (white links) */
   .nav{display:flex; align-items:center; gap:22px; font-size:.95rem; text-transform:uppercase; letter-spacing:.08em}
   .nav > li{list-style:none; position:relative}
   .nav > li > a,
@@ -108,8 +142,14 @@
     .nav-wrap.open{display:block}
     .has-sub.open > .dropdown{display:block}
   }
+  @media (min-width:1100px){
+  #properties .grid{
+    transform: translateX(40px); /* try 16–40px */
+  }
+}
 
-  /* Hero */
+
+  /* ===== Hero ===== */
   .hero{position:relative; height:80vh; min-height:540px; width:100%; margin-top:64px; overflow:hidden}
   .hero-layer{
     position:absolute; inset:0; background-size:cover; background-position:center; opacity:0;
@@ -120,15 +160,28 @@
   .hero-content{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:24px; z-index:1}
   .logo-wrap{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px;text-align:center;width:100%}
   .logo-dot{width:50px; height:50px; border-radius:50%; background:url('assets/sentinel_logo_white.png') center/cover no-repeat}
-  .logo-text{font-weight:900; font-size:3.5rem; letter-spacing:.14em; text-transform:uppercase; text-shadow:2px 2px 4px rgba(0,0,0,0.9); color:#fff;}
-  .tag{color:#34695e; letter-spacing:.35em; font-size:1.4rem; text-transform:uppercase; margin-bottom:26px; font-weight:800; text-shadow:1px 1px 3px rgba(0,0,0,0.9);}
+  .logo-text{
+    font-weight:900; font-size:3.5rem; letter-spacing:.14em; text-transform:uppercase;
+    text-shadow:2px 2px 4px rgba(0,0,0,0.9); color:#fff;
+  }
+  .tag{
+    color:#fff;                /* white per request */
+    letter-spacing:.35em; font-size:1.4rem; text-transform:uppercase; margin-bottom:26px;
+    font-weight:800; text-shadow:1px 1px 3px rgba(0,0,0,0.9);
+  }
   .city-row{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin-top:14px}
   .chip{background:#0b0b0c; color:#fff; border:none; padding:14px 28px; border-radius:3px; text-transform:uppercase; letter-spacing:.12em; font-size:.9rem; font-weight:700; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); transition:all .2s ease}
   .chip:hover{background:var(--accent); transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,0.25)}
-  .lead{color:#e9e9e9; max-width:900px; margin:0 auto 18px; font-size:1.08rem; line-height:1.6; text-shadow:1px 1px 3px rgba(0,0,0,.6);}
 
+  /* Added: hero description + spacing */
+  .lead{
+    color:#e9e9e9; max-width:900px; margin:0 auto 18px; font-size:1.08rem; line-height:1.6; text-shadow:1px 1px 3px rgba(0,0,0,.6);
+  }
+
+  /* Hide city chips (still present in DOM) */
   .city-row{ display:none !important; }
 
+  /* Sections & cards */
   .section{padding:56px 0}
   .eyebrow{color:var(--accent); text-transform:uppercase; letter-spacing:.3em; font-size:.8rem}
   .title{font-size:2.4rem; line-height:1.1; margin:.35rem 0 1.25rem}
@@ -141,64 +194,81 @@
 
   .thumb{aspect-ratio:16/9; background:#141518; position:relative; transition:filter .35s ease, transform .35s ease; transform:scale(1)}
   .card:hover .thumb{filter:grayscale(0%); transform:scale(1.02)}
+  .price{position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,.45); padding:6px 10px; border-radius:8px; font-weight:700; font-size:.95rem}
   .card .body{padding:14px 14px 18px}
-  .addr{color:var(--muted); font-size:.9rem}
+
+  /* property card readability */
+  .card .body h3{ color:#fff; font-weight:800; margin:0 0 4px; }
+  #properties .addr{ color:#f5f5f7; font-weight:600; }
   .details{margin-top:6px; color:#e1e1e1; font-size:.95rem}
 
   .cta{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:12px; background:var(--accent); color:white; font-weight:700; letter-spacing:.08em; border:none; cursor:pointer}
 
   /* Person */
-  .person{position:relative; padding:72px 0; border-top:1px solid rgba(0,0,0,.06)}
+  .person{position:relative; padding:72px 0; background:var(--bg); border-top:1px solid rgba(255,255,255,.08)}
   .person::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none; background-image:url('assets/sentinel_logo_1.png'), url('assets/sentinel_logo_1.png'); background-repeat:no-repeat,no-repeat; background-position:85% 20%,10% 85%; background-size:260px,200px; opacity:.06; filter:grayscale(100%);}
   .person .wrap{position:relative; z-index:1; max-width:var(--max); margin:0 auto; padding:0 20px; display:grid; grid-template-columns:minmax(420px,560px) minmax(0,1fr); column-gap:72px; align-items:start}
-  .person .photo{width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.20); justify-self:start; margin-left:-16px}
+  .person .photo{width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.28); justify-self:start; margin-left:-16px}
   .person h3{font-size:2.4rem; margin:0 0 6px}
-  .person .role{color:#777; margin-bottom:16px; letter-spacing:.08em; text-transform:uppercase; font-size:.85rem}
-  .person p{color:#000; line-height:1.7; margin:0 0 18px}
+  .person .role{color:var(--muted); margin-bottom:16px; letter-spacing:.08em; text-transform:uppercase; font-size:.85rem}
+  .person p{color:#000000; line-height:1.7; margin:0 0 18px}
+  .person .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
+  .btn-ghost,.btn-outline{padding:10px 16px; border-radius:10px; font-weight:700; letter-spacing:.04em; cursor:pointer; border:1px solid rgba(255,255,255,.22); background:transparent; color:var(--text)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .btn-outline{border:1px solid var(--accent)}
+  .btn-outline:hover{background:var(--accent)}
 
-  /* Properties */
+  /* Watermark for properties */
   #properties{position:relative; z-index:0}
+  #properties::before,#properties::after{content:""; position:absolute; pointer-events:none; background:url('assets/sentinel_logo_1.png') center/contain no-repeat; opacity:.00; filter:grayscale(100%); z-index:0;}
+  #properties::before{width:340px;height:340px; right:24px; top:40px}
+  #properties::after{width:240px;height:240px; left:24px; bottom:10px}
   #properties > *{position:relative; z-index:1}
 
+  /* Center the Portfolio header block and grid */
+  #properties .container > div:first-child{max-width:1100px; margin:0 auto 12px;}
+  #properties .grid{max-width:1100px; margin:0 auto;}
+
   /* Press teaser */
-  .press-teaser{position:relative; padding:80px 0; border-top:1px solid rgba(0,0,0,.06)}
+  .press-teaser{position:relative; padding:80px 0; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.03) 100%); border-top:1px solid rgba(255,255,255,.08)}
   .press-teaser .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:start}
-  .press-intro{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:26px 28px; box-shadow:0 16px 36px rgba(0,0,0,.20)}
+  .press-intro{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:26px 28px; box-shadow:0 16px 36px rgba(0,0,0,.3)}
   .press-grid{display:grid; gap:16px}
-  .press-mini{display:grid; grid-template-columns:130px 1fr; gap:14px; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; box-shadow:0 12px 26px rgba(0,0,0,.2); transition:transform .25s ease; filter:grayscale(100%)}
-  .press-mini:hover{transform:translateY(-2px); filter:grayscale(0%)}
+  .press-mini{display:grid; grid-template-columns:130px 1fr; gap:14px; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.26); transition:transform .25s ease; filter:none;} /* no grayscale */
+  .press-mini:hover{transform:translateY(-2px);} /* no grayscale on hover */
   .press-thumb{aspect-ratio:1/1; background:#15161a; overflow:hidden}
   .press-thumb img{width:100%; height:100%; object-fit:cover}
   .press-body{padding:14px}
-  .press-kicker{color:#ddd; text-transform:uppercase; letter-spacing:.12em; font-size:.75rem; margin-bottom:4px}
+  .press-kicker{color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:.75rem; margin-bottom:4px}
   .press-title{font-weight:800; line-height:1.25}
   .press-btn{display:inline-flex; gap:8px; align-items:center; border:1px solid rgba(255,255,255,.22); padding:8px 12px; border-radius:10px; margin-top:10px; font-weight:700}
   .press-btn:hover{background:rgba(255,255,255,.08)}
 
-  /* About & VMV spacing */
+  /* About & VMV spacing (reduce gap) */
   .about{padding:72px 0 20px}
-  .about .about-text p{color:#000; line-height:1.75; margin:.4rem 0}
   .about .grid-cards{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-  .about-card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:22px 22px; box-shadow:0 14px 30px rgba(0,0,0,.2)}
-  .about-card p{color:#eaeaea; line-height:1.75; margin:.25rem 0}
+  .about-card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:22px 22px; box-shadow:0 14px 36px rgba(0,0,0,.26)}
+  .about-card p{color:#e3e3e3; line-height:1.75; margin:.25rem 0}
 
-  .community{padding:20px 0 80px;}
+  .community{padding:20px 0 80px; background:var(--bg); border-top:1px solid rgba(255,255,255,.08)}
   .community .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-  .cb-card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.2); transition: transform .35s ease;}
+  .cb-card{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; box-shadow:0 14px 36px rgba(0,0,0,.26); transition: transform .35s ease;}
   .cb-card:hover{transform:translateY(-2px)}
   .cb-img{aspect-ratio:16/10; overflow:hidden}
   .cb-img img{width:100%; height:100%; object-fit:cover}
   .cb-body{padding:18px}
   .cb-title{font-weight:800; margin:0 0 8px}
   .cb-text{color:#e1e1e1; font-size:.95rem; line-height:1.65}
+
+  /* Read-more collapse */
   .cb-text.clamp{--lines:6; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:var(--lines); overflow:hidden; position:relative; padding-bottom:8px;}
   .cb-text.clamp::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2.2rem; background:linear-gradient(to bottom, rgba(36,38,43,0), var(--card)); pointer-events:none;}
   .cb-card.open .cb-text.clamp{-webkit-line-clamp:unset; overflow:visible}
   .cb-card.open .cb-text.clamp::after{display:none}
-  .more-btn{margin-top:10px; border:1px solid rgba(255,255,255,.22); background:transparent; color:#fff; padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.04em; cursor:pointer;}
+  .more-btn{margin-top:10px; border:1px solid rgba(255,255,255,.22); background:transparent; color:var(--text); padding:8px 12px; border-radius:10px; font-weight:700; letter-spacing:.04em; cursor:pointer;}
   .more-btn:hover{background:rgba(255,255,255,.08)}
 
-  /* Stats band (kept) */
+  /* Why Work With Us (stats) */
   .stats-band{position:relative; margin-top:0px; background:url('assets/image004.png') center/cover no-repeat; min-height:320px; display:flex; align-items:center}
   .stats-band::before{content:""; position:absolute; inset:0; background:rgba(52, 105, 94, 1.0)}
   .stats-band .inner{position:relative; z-index:1}
@@ -206,19 +276,35 @@
   .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
   .stat{text-align:center; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:18px; box-shadow:0 10px 24px rgba(0,0,0,.26)}
   .stat .num{font-weight:900; font-size:2rem; color:#fff}
-  .stat .label{color:#f0f0f0; letter-spacing:.12em; text-transform:uppercase; font-size:.75rem; margin-top:6px}
+  .stat .label{color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.75rem; margin-top:6px}
 
   /* Join */
-  .join{position:relative; background:url('assets/connect.jpeg') center/cover no-repeat; padding:96px 0; margin:0}
+  .join{position:relative; background:url('assets/connect.jpeg') center/cover no-repeat; padding:96px 0; margin-top:20px}
   .join::before{content:""; position:absolute; inset:0; background:rgba(52, 105, 94, 1.0)}
   .join .wrap{position:relative; z-index:1; max-width:900px}
   .join h2{font-size:2.6rem; margin:0 0 10px; color:#fff}
   .join p{color:#e6e6e6; margin:0 0 18px}
   .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:10px 0}
-  .join input,.join textarea{width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.22); background:rgba(0,0,0,.25); color:#fff; outline:none;}
+  .join input,.join textarea{width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.22); background:rgba(0,0,0,.25); color:var(--text); outline:none;}
   .join textarea{min-height:140px; resize:vertical}
   .join .submit{display:inline-flex; align-items:center; gap:8px; padding:12px 18px; border-radius:10px; border:1px solid var(--accent); background:var(--accent); color:#fff; font-weight:800; letter-spacing:.08em; cursor:pointer; margin-top:6px; box-shadow:0 10px 24px rgba(230,27,35,.28)}
 
+  /* Optional gray CTA variant */
+  .cta-gray{background:var(--card); border:1px solid rgba(0,0,0,.25); color:#000; box-shadow:0 6px 14px rgba(0,0,0,.25);}
+  .cta-gray:hover{background:#444; color:#fff;}
+
+  /* Reveal animation */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.3s ease, transform 0.3s ease}
+  .reveal.visible{opacity:1; transform:translateY(0)}
+
+  footer{padding:40px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+  footer a{color:var(--accent)}
+  footer a:hover{text-decoration:underline}
+
+  @media (max-width:1100px){
+    #properties::before{ right:16px; top:24px; width:280px; height:280px}
+    #properties::after{ left:16px; bottom:8px; width:200px; height:200px}
+  }
   @media (max-width:1000px){
     .card.small{grid-column:span 6}
     .community .cards{grid-template-columns:1fr}
@@ -237,13 +323,37 @@
     .stats{grid-template-columns:1fr}
   }
 
+
+  /* --- Mobile footer fixes (no desktop changes) --- */
+@media (max-width: 700px){
+  .footer-grid{
+    grid-template-columns: 1fr;   /* stack columns */
+    gap: 18px;
+  }
+
+  .footer-logo{ width:48px; height:48px; }  /* small icon */
+  .site-footer .container{ padding: 0 16px; }
+
+  /* let long text wrap */
+  .contact-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .site-footer a, .site-footer li, .site-footer p{
+    overflow-wrap:anywhere; word-break:break-word;
+  }
+
+  .footer-bottom{
+    flex-direction:column; align-items:flex-start; gap:8px;
+  }
+}
+
+
+
   /* Fancy Footer */
   .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden;}
   .site-footer::before{content:""; position:absolute; inset:0; background-image:url('assets/sentinel_logo_1.png'); background-repeat:no-repeat; background-position:92% 20%; background-size:340px; opacity:.06; filter:grayscale(100%); pointer-events:none;}
   .footer-grid{display:grid; gap:32px; grid-template-columns:1.2fr 1fr 1fr; align-items:start; position:relative; z-index:1;}
   .footer-brand h4{margin:.4rem 0 .2rem; font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; color:#fff;}
   .footer-tag{margin:0 0 .8rem; color:var(--muted)}
-  .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sentineGREENLOGOtransparent.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
+  .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sent_lighthouse.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
   .footer-contact{display:flex; flex-direction:column; gap:8px; margin-top:10px}
   .contact-row{display:inline-flex; align-items:center; gap:10px; color:#d7d7d7; opacity:.95;}
   .contact-row:hover{opacity:1}
@@ -262,9 +372,41 @@
   .footer-bottom{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; gap:12px; color:#c9c9c9;}
   .footer-bottom .dev a{color:var(--accent); font-weight:800}
   .footer-bottom .dev a:hover{text-decoration:underline}
+
+  /* STRIPE HELPERS */
+  .stripe-white{background:var(--bg) !important;}
+  .stripe-soft{background:var(--bg-soft) !important;}
+
+  /* --- Reserve banner overlap fix --- */
+:root { --reserve-banner-h: 36px; } /* banner height */
+
+/* keep banner on very top */
+.reserve-banner{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--reserve-banner-h);
+}
+
+/* push the fixed header below the banner */
+.topbar{
+  top: var(--reserve-banner-h) !important; /* overrides inset/top from earlier rule */
+}
+
   </style>
 </head>
-<body>
+<body class="has-booking-banner">
+  <!-- Booking banner (added, minimal) -->
+  <div class="booking-banner" role="region" aria-label="Booking Calendar Info">
+    <div class="container">
+      <div>
+        <a href="booking.html">Click here</a>
+        to reserve the Deli Area and/or Conference Room at our AllenPlace, 450 Century Parkway location.
+      </div>
+      <a class="cta-right" href="booking.html">Open full page →</a>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="topbar" role="banner">
     <div class="inner">
@@ -303,7 +445,7 @@
     </div>
   </header>
 
-  <!-- Hero (unchanged) -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-layer show" id="heroA" style="background-image:url('assets/')"></div>
     <div class="hero-layer" id="heroB" style="background-image:url('assets/')"></div>
@@ -317,12 +459,18 @@
         <div class="tag">Real Estate Investment</div>
 
         <p class="lead">
-          <strong>Sentinel Capital</strong> operates as a fully-integrated commercial real estate investment platform,
+          Sentinel Capital operates as a fully-integrated commercial real estate investment platform,
           executing strategic acquisition, development, value-enhancement, and asset management initiatives
-          across diversified commercial portfolios for <em>resilient, risk-adjusted performance</em>.
+          across diversified commercial portfolios.
         </p>
         <a class="cta" href="#Us" style="margin-top:8px;">Learn More ↓</a>
-        <div class="city-row"></div>
+
+        <div class="city-row">
+          <button class="chip" onclick="window.location.href='allen-tx.html'">Allen, TX</button>
+          <button class="chip" onclick="window.location.href='houston-tx.html'">Houston, TX</button>
+          <button class="chip" onclick="window.location.href='arlington-tx.html'">Arlington, TX</button>
+          <button class="chip" onclick="window.location.href='san-antonio-tx.html'">San Antonio, TX</button>
+        </div>
       </div>
     </div>
   </section>
@@ -331,7 +479,7 @@
   <section class="stats-band">
     <div class="container inner">
       <div class="eyebrow reveal"></div>
-      <h2 class="title reveal" style="margin-top:.25rem">Hands on Partnerships for Measured<span style="color:#000;font-style:italic;letter-spacing:.02em"> Results </span></h2>
+      <h2 class="title reveal" style="margin-top:.25rem">Hands on Partnerships for Measured<span style="color:#fff;font-style:italic;letter-spacing:.02em"> Results </span></h2>
       <div class="stats">
         <div class="stat reveal"><div class="num">+$350M</div><div class="label">Assets under Management </div></div>
         <div class="stat reveal" style="transition-delay:.06s"><div class="num">+1,600</div><div class="label">Units under Management</div></div>
@@ -341,11 +489,11 @@
     </div>
   </section>
 
-  <!-- 01: About Us (stripe 1 = white) -->
+  <!-- 01: About Us (text only) -->
   <section class="about stripe-white" id="Us">
     <div class="container">
       <div class="eyebrow"></div>
-      <h2 class="title">About Us</h2>
+      <h2 class="title">About <span class="accent-green">Us</span></h2>
 
       <div class="about-text">
         <p><strong>Sentinel Capital</strong> was formed in 2012 as a real estate investment sponsor specializing in the acquisition and asset management of mid-market multifamily assets throughout the State of Texas.</p>
@@ -356,44 +504,41 @@
     </div>
   </section>
 
-  <!-- 02: Vision • Mission • Values (stripe 2 = light gray) -->
-  <section class="community stripe-gray">
+  <!-- 02: Vision • Mission • Values -->
+  <section class="community stripe-white">
     <div class="container">
       <div class="cards">
-        <!-- Vision -->
         <div class="cb-card reveal">
           <div class="cb-img"><img src="assets/Vision.jpeg" alt="Vision"></div>
           <div class="cb-body">
             <div class="cb-title">Vision</div>
             <div class="cb-text clamp">
-              Our vision is to grow from a trusted family office into a premier, mid-sized real estate investment firm recognized for its <strong>disciplined strategy</strong>, <strong>long–term value creation</strong>, and <strong>enduring partnerships</strong>. We aim to be a partner of choice for all existing and future clients, delivering consistent <em>performance and transparency</em>.
+              Our vision is to grow from a trusted family office into a premier, mid-sized real estate investment firm recognized for its disciplined strategy, long–term value creation, and enduring partnerships. We aim to be a partner of choice for all existing and future clients, delivering consistent performance and most importantly, consistent transparency. Rooted in entrepreneurial drive, we are committed to upholding the reputation that we have all so carefully constructed.
             </div>
             <button class="more-btn" type="button" aria-expanded="false">Read more</button>
           </div>
         </div>
 
-        <!-- Mission -->
         <div class="cb-card reveal" style="transition-delay:.08s">
           <div class="cb-img"><img src="assets/Mission.jpeg" alt="Mission"></div>
           <div class="cb-body">
             <div class="cb-title">Mission</div>
             <div class="cb-text clamp">
-              Our mission is to identify, acquire, and manage high-quality commercial real estate assets that generate <strong>lasting value</strong> for our investors and the communities we serve. We operate with <strong>integrity</strong>, <strong>precision</strong>, and <strong>purpose</strong>—leveraging deep market insight and a disciplined investment approach to deliver superior <em>risk-adjusted returns</em>.
+              Our mission is to identify, acquire, and manage high-quality commercial real estate assets that generate lasting value for our investors and the communities we serve. We operate with integrity, precision, and purpose—leveraging our deep market insight, disciplined investment approach, and entrepreneurial mindset to deliver superior risk-adjusted returns. Guided by a commitment to excellence and an unwavering dedication to reputation, we build enduring partnerships and create resilient portfolios designed for long-term growth.
             </div>
             <button class="more-btn" type="button" aria-expanded="false">Read more</button>
           </div>
         </div>
 
-        <!-- Values -->
         <div class="cb-card reveal" style="transition-delay:.16s">
           <div class="cb-img"><img src="assets/Values.jpeg" alt="Values"></div>
           <div class="cb-body">
             <div class="cb-title">Values</div>
             <div class="cb-text clamp">
-              <strong>Integrity:</strong> Every decision is rooted in honesty, accountability, and transparency—our reputation is built on <em>trust</em>.<br><br>
-              <strong>Uniqueness:</strong> We embrace innovative thinking and tailored solutions that differentiate us in competitive markets.<br><br>
-              <strong>Zeal:</strong> A passionate, execution-first mindset drives consistent excellence.<br><br>
-              <strong>Resiliency:</strong> We navigate change with discipline and agility, creating durable value across cycles.
+              <strong>Integrity:</strong> Every decision we make is rooted in honesty, accountability, and transparency. Our reputation is built on trust — earned through consistency and ethical conduct.
+              <br><br><strong>Uniqueness:</strong> We embrace innovative thinking and unconventional strategies that distinguish us in a competitive market. Our ability to identify underappreciated assets and create tailored investment solutions reflects our entrepreneurial DNA.
+              <br><br><strong>Zeal:</strong> We are passionate about real estate, driven by a relentless pursuit of excellence. Our enthusiasm fuels bold action, meticulous execution, and an unwavering commitment to achieving exceptional outcomes.
+              <br><br><strong>Resiliency:</strong> In a constantly evolving market, we remain steadfast—navigating challenges with discipline and agility. Our long-term perspective empowers us to build enduring value across market cycles.
             </div>
             <button class="more-btn" type="button" aria-expanded="false">Read more</button>
           </div>
@@ -402,60 +547,62 @@
     </div>
   </section>
 
-  <!-- 02: Featured Listings / Portfolio (stripe 3 = white) -->
-  <section class="section container stripe-white" id="properties">
-    <div>
-      <div class="eyebrow"></div>
-      <h2 class="title">Portfolio</h2>
-      <a class="cta" href="portfolio-commercial.html" style="margin-bottom:16px;">View All Properties</a>
-    </div>
+  <!-- 02: Featured Listings -->
+  <section class="section stripe-soft" id="properties">
+    <div class="container">
+      <div>
+        <div class="eyebrow"></div>
+        <h2 class="title"><span class="accent-green">Portfolio</span></h2>
+        <a class="cta" href="portfolio-commercial.html" style="margin-bottom:16px;">View All Properties</a>
+      </div>
 
-    <div class="grid">
-      <a class="card tall reveal" href="property-template.html" aria-label="Wildwood Forest Apartment details">
-        <div class="thumb" style="background-image:url('assets/Aerial\(2\).jpg'); background-size:cover;background-position:center"></div>
-        <div class="body">
-          <h3>Wildwood Forest Apartment</h3>
-          <div class="addr">1234 Hillcrest Rd, TX</div>
-          <div class="details"><strong>252 Units</strong> • Built 1997</div>
-        </div>
-      </a>
+      <div class="grid">
+        <a class="card tall reveal" href="mf-wildwood-forest.html" aria-label="Wildwood Forest Apartment details">
+          <div class="thumb" style="background-image:url('assets/Aerial\(2\).jpg'); background-size:cover;background-position:center"></div>
+          <div class="body">
+            <h3>Wildwood Forest Apartment</h3>
+            <div class="addr">Spring, TX</div>
+            <div class="details">252 Units • Built 1997</div>
+          </div>
+        </a>
 
-      <a class="card small reveal" style="transition-delay:.07s" href="property-template.html" aria-label="Forest Oaks Apartments details">
-        <div class="thumb" style="background-image:url('assets/Forest_oaks.jpg'); background-size:cover;background-position:center"></div>
-        <div class="body">
-          <h3>Forest Oaks Apartments</h3>
-          <div class="addr">24844 Malibu Rd, TX</div>
-          <div class="details"><em>Units • Built Year</em></div>
-        </div>
-      </a>
+        <a class="card small reveal" style="transition-delay:.07s" href="com-mckinney-business-park.html" aria-label="Mckinney Business Park">
+          <div class="thumb" style="background-image:url('assets/mckinney2.jpg'); background-size:cover;background-position:center"></div>
+          <div class="body">
+            <h3>Mckinney Business Park</h3>
+            <div class="addr">Mckinney, TX</div>
+            <div class="details">150,500 SF • Built 2020</div>
+          </div>
+        </a>
 
-      <a class="card small reveal" style="transition-delay:.12s" href="property-template.html" aria-label="Clear Lake Apartments details">
-        <div class="thumb" style="background-image:url('assets/Clear-Lake-Apartments.jpg'); background-size:cover;background-position:center"></div>
-        <div class="body">
-          <h3>Clear Lake Apartments</h3>
-          <div class="addr">18 Vista Ridge, Clear Lake</div>
-          <div class="details"><strong>244 Units</strong> • Built 1979</div>
-        </div>
-      </a>
+        <a class="card small reveal" style="transition-delay:.12s" href="mf-breeze-clear-lake.html" aria-label="Breeze at Clear Lake">
+          <div class="thumb" style="background-image:url('assets/Clear-Lake-Apartments.jpg'); background-size:cover;background-position:center"></div>
+          <div class="body">
+            <h3>Breeze at Clear Lake</h3>
+            <div class="addr">Clear Lake, TX</div>
+            <div class="details">244 Units • Built 1979</div>
+          </div>
+        </a>
 
-      <a class="card wide reveal" style="transition-delay:.18s" href="property-template.html" aria-label="Allen Place details">
-        <div class="thumb" style="background-image:url('assets/allen_place.jpg'); background-size:cover;background-position:center"></div>
-        <div class="body">
-          <h3>Allen Place</h3>
-          <div class="addr">Allen, TX</div>
-          <div class="details"><em>Square Feet • Built Year</em></div>
-        </div>
-      </a>
+        <a class="card wide reveal" style="transition-delay:.18s" href="com-allen-place.html" aria-label="Allen Place details">
+          <div class="thumb" style="background-image:url('assets/allen_place.jpg'); background-size:cover;background-position:center"></div>
+          <div class="body">
+            <h3>AllenPlace</h3>
+            <div class="addr">Allen, TX</div>
+            <div class="details">102,000 SF • Built 2016</div>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- 03: Meet Our Team (stripe 4 = light gray) -->
-  <section class="person stripe-gray" id="about">
+  <!-- 03: Person Showcase -->
+  <section class="person stripe-white" id="about">
     <div class="wrap">
       <img class="photo reveal" src="assets/team.jpg" alt="Managing Director">
       <div class="content reveal" style="transition-delay:.12s">
         <div class="eyebrow"></div>
-        <h3>Meet Our Team</h3>
+        <h3>Meet Our <span class="accent-green">Team</span></h3>
         <p>
           The Sentinel Capital leadership team represents <strong>more than four decades</strong> of experience in <strong>Texas real estate</strong>. Our professionals offer proven expertise across <strong>acquisitions</strong>, <strong>investment strategy</strong>, <strong>asset management</strong>, and <strong>financial stewardship</strong>. Working as a unified partnership, we leverage this depth of knowledge to deliver <em>disciplined execution</em>, <em>resilient performance</em>, and long-term value for our investors and stakeholders.
         </p>
@@ -466,48 +613,48 @@
     </div>
   </section>
 
-  <!-- 04: Press teaser (stripe 5 = white) -->
-  <section class="press-teaser stripe-white">
+  <!-- 04: Press teaser -->
+  <section class="press-teaser stripe-soft">
     <div class="container wrap">
       <div class="press-intro reveal">
         <div class="eyebrow"></div>
-        <h2 class="title" style="margin-top:.25rem">In The <span style="color:#ffffff;font-style:italic;letter-spacing:.02em">Media</span></h2>
-        <p style="color:#f3f3f3; line-height:1.7; margin:0 0 14px">
-          Highlighted coverage from our latest <strong>announcements</strong> and <strong>acquisitions</strong>—curated for quick insights.
+        <h2 class="title" style="margin-top:.25rem">In The <span class="accent-white">Media</span></h2>
+        <p style="color:#d7d7d7; line-height:1.7; margin:0 0 14px">
+          Highlighted coverage from our latest announcements and acquisitions.
         </p>
         <a class="press-btn" href="press.html">View All Press →</a>
       </div>
 
       <div class="press-grid">
-        <a class="press-mini reveal" style="transition-delay:.06s" href="press.html#wwf">
-          <div class="press-thumb">
-            <img src="assets/wwf.jpg" alt="Wildwood Forest (The Woodlands) Press Release">
-          </div>
+        <a class="press-mini reveal" style="transition-delay:.06s"
+           href="https://www.linkedin.com/posts/patrick-magliaro-62021372_recently-acquired-wildwood-forest-apartments-activity-7290110451986640900-CcnO?utm_source=share&utm_medium=member_desktop&rcm=ACoAAA9WYLgB-n1rKo1pMNpnfPAixpnuNlZD67o"
+           target="_blank" rel="noopener" aria-label="Wildwood Forest LinkedIn announcement">
+          <div class="press-thumb"><img src="assets/wwf.jpg" alt="Wildwood Forest (The Woodlands)"></div>
           <div class="press-body">
-            <div class="press-kicker">Press Release</div>
-            <div class="press-title"><strong>Sentinel Capital</strong> expands ownership into <em>The Woodlands</em> with another <strong>252 units</strong></div>
+            <div class="press-kicker">LinkedIn</div>
+            <div class="press-title">Sentinel Capital Expands Ownership into The Woodlands with another 252 units</div>
             <span class="press-btn" style="margin-top:8px">Read More</span>
           </div>
         </a>
 
-        <a class="press-mini reveal" style="transition-delay:.12s" href="press.html#oak-run-manor">
-          <div class="press-thumb">
-            <img src="assets/oak_run.jpg" alt="Oak Run Manor Press Release">
-          </div>
+        <a class="press-mini reveal" style="transition-delay:.12s"
+           href="https://www.linkedin.com/posts/patrick-magliaro-62021372_sentinel-capital-adds-another-160-units-activity-7186810604177756162-kp_t?utm_source=share&utm_medium=member_desktop&rcm=ACoAAA9WYLgB-n1rKo1pMNpnfPAixpnuNlZD67o"
+           target="_blank" rel="noopener" aria-label="Oak Run Manor LinkedIn announcement">
+          <div class="press-thumb"><img src="assets/oak_run.jpg" alt="Oak Run Manor"></div>
           <div class="press-body">
-            <div class="press-kicker">Press Release</div>
-            <div class="press-title"><strong>160 units</strong> in <em>Pasadena</em> added to Sentinel Capital’s portfolio</div>
+            <div class="press-kicker">LinkedIn</div>
+            <div class="press-title">160 units in Pasadena added to Sentinel Capital’s portfolio</div>
             <span class="press-btn" style="margin-top:8px">Read More</span>
           </div>
         </a>
 
-        <a class="press-mini reveal" style="transition-delay:.18s" href="press.html#harbour-point">
-          <div class="press-thumb">
-            <img src="assets/harbour_point.jpg" alt="Harbour Point Press Release">
-          </div>
+        <a class="press-mini reveal" style="transition-delay:.18s"
+           href="https://www.linkedin.com/posts/patrick-magliaro-62021372_sentinel-capital-closes-another-210-units-activity-7181347931122270208-o-zW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAA9WYLgB-n1rKo1pMNpnfPAixpnuNlZD67o"
+           target="_blank" rel="noopener" aria-label="Harbour Point LinkedIn announcement">
+          <div class="press-thumb"><img src="assets/harbour_point.jpg" alt="Harbour Point"></div>
           <div class="press-body">
-            <div class="press-kicker">Press Release</div>
-            <div class="press-title">Sentinel Capital purchases <strong>210 units</strong> in <em>Webster</em></div>
+            <div class="press-kicker">LinkedIn</div>
+            <div class="press-title">Sentinel Capital purchases 210 units in Webster</div>
             <span class="press-btn" style="margin-top:8px">Read More</span>
           </div>
         </a>
@@ -515,16 +662,14 @@
     </div>
   </section>
 
-  <!-- 07: Connect With Us (stripe 6 = light gray) -->
-  <section class="join stripe-gray">
+  <!-- 07: Connect With Us -->
+  <section class="join">
     <div class="container wrap">
       <div class="eyebrow reveal"></div>
       <h2 class="reveal">Connect with <span style="color:#000;font-style:italic">Us</span></h2>
-      <p class="reveal" style="transition-delay:.06s">
-        Keep up to date with the latest <strong>market trends</strong> and <strong>opportunities</strong> across Texas.
-      </p>
+      <p class="reveal" style="transition-delay:.06s"> Keep up to date with the latest market trends and opportunities across Texas. </p>
       <div class="reveal" style="transition-delay:.12s">
-        <a href="contact.html" class="cta">Connect</a>
+        <a href="contact.html" class="cta cta-gray">Connect</a>
       </div>
     </div>
   </section>
@@ -542,21 +687,15 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2Zm18 5.05V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4.95l10 6.25 10-6.25Z"/></svg>
             info@sentinelcap.com
           </a>
-          <a href="tel:+1-713-555-0100" class="contact-row">
+          <a href="tel:+1-713-547-5100" class="contact-row">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.37c1.65.55 3.43.85 5.25.89a1.5 1.5 0 0 1 1.45 1.5v3.28A1.5 1.5 0 0 1 22.1 22C11.3 21.5 2.5 12.7 2 1.9A1.5 1.5 0 0 1 3.5.5H6.8A1.5 1.5 0 0 1 8.3 2c.04 1.82.34 3.6.9 5.25.2.52.08 1.11-.37 1.5l-2.23 2.05Z"/></svg>
-            +1 (713) 555-0100
+            (713) 547-5100
           </a>
         </div>
 
         <div class="social">
-          <a href="#" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5Zm.52 6H2v12h3.5V9.5ZM13 9.3c-2.08 0-3.5 1.14-3.5 3.05V21H13v-6c0-1.01.73-1.69 1.8-1.69 1.02 0 1.7.68 1.7 1.69V21H20v-7.03C20 10.92 18.52 9.3 16.3 9.3 15 9.3 13.94 9.9 13.4 10.8h-.04V9.5H13Z"/></svg>
-          </a>
-          <a href="#" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5Zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5ZM18 6.2a1.2 1.2 0 1 0 1.2 1.2A1.2 1.2 0 0 0 18 6.2Z"/></svg>
-          </a>
-          <a href="#" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 44.4 44.4 0 0 0 1 12a44.4 44.4 0 0 0 0-4.5ZM9.75 15.02V8.98L15 12l-5.25 3.02Z"/></svg>
           </a>
         </div>
       </div>
@@ -566,11 +705,10 @@
         <ul class="footer-list">
           <li>20475 State Hwy 249 • Suite 100</li>
           <li>Houston, TX 77070</li>
-          <li><a href="tel:+1-713-555-0100">+1 (713) 555-0100</a></li>
+          <li><a href="tel:+1-713-547-5100">(713) 547-5100</a></li>
         </ul>
         <ul class="footer-list">
-          <li>Allen • Arlington • San Antonio</li>
-          <li>Greater Houston Area</li>
+          <li><em>Proudly Texas born, based, and focused.</em></li>
         </ul>
       </div>
 
@@ -583,6 +721,7 @@
           <li><a href="portfolio-multifamily.html">Multi-Family</a></li>
           <li><a href="portfolio-commercial.html">Commercial</a></li>
           <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
         </ul>
       </div>
     </div>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking Calendar – AllenPlace, 450 Century Parkway</title>
+
+  <!-- SEO (optional) -->
+  <meta name="description" content="Reserve the Deli Area and/or Conference Room at AllenPlace, 450 Century Parkway." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300..900&display=swap" rel="stylesheet">
+
+  <!-- =====  THEME VARIABLES & SHARED STYLES FROM YOUR INDEX  (unaltered) ===== -->
+  <style>
+  :root{
+    --bg:#ffffff;        /* main background  */
+    --bg-soft:#e6e6e6;   /* softer section background */
+    --card:#979797;      /* card background */
+    --text:#000000;      /* default body text */
+    --muted:#c0c0c0;     /* lighter muted text */
+    --accent:#34695e;    /* green accent */
+    --glass:rgba(43,43,47,.7);
+    --max:1200px;
+
+    /* Font stacks */
+    --font-title: "Open Sauce Heavy","Open Sauce Sans","Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --font-body:  "Roboto","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+
+  /* Titles use Open Sauce Heavy */
+  h1,h2,h3,.title,.logo-text,.cb-title,.stat .num{font-family:var(--font-title); letter-spacing:.02em}
+
+  /* Top nav (global header) — solid dark like footer */
+  .topbar{
+    position:fixed; inset:0 0 auto 0; height:64px; z-index:50;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg, #181a1d 0%, #141518 100%);
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .topbar .inner{
+    width:100%; max-width:var(--max); padding:0 20px;
+    display:flex; align-items:center; justify-content:space-between; position:relative;
+  }
+  .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:.12em}
+  .brand .mark{width:50px; height:50px; border-radius:50%; background:url('assets/sent_lighthouse.png') center/contain no-repeat}
+
+  .nav{display:flex; align-items:center; gap:22px; font-size:.95rem; text-transform:uppercase; letter-spacing:.08em}
+  .nav > li{list-style:none; position:relative}
+  .nav > li > a,
+  .nav > li > button{
+    background:none; border:0; color:#fff; font:inherit; text-transform:inherit; letter-spacing:inherit;
+    padding:10px 6px; cursor:pointer; opacity:1; display:flex; align-items:center; gap:6px;
+  }
+  .nav > li > a:hover,.nav > li > button:hover{opacity:1}
+  .caret{display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid #fff; margin-top:2px; opacity:1; transition:transform .15s ease;}
+  .dropdown{
+    position:absolute; top:100%; left:0; min-width:220px; background:rgba(26,26,28,.98);
+    border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:8px; box-shadow:0 10px 30px rgba(0,0,0,.35); display:none;
+  }
+  .dropdown a{display:flex; align-items:center; gap:8px; padding:10px 10px; border-radius:8px; opacity:.95; color:#fff}
+  .dropdown a:hover{background:rgba(255,255,255,.08); opacity:1}
+  .has-sub:hover > .dropdown, .has-sub:focus-within > .dropdown{display:block}
+  .has-sub:hover > button .caret, .has-sub[aria-expanded="true"] > button .caret{transform:rotate(180deg)}
+
+  .menu-btn{
+    display:none; font-size:14px; padding:8px 10px;
+    border:1px solid rgba(255,255,255,.25); border-radius:8px; background:transparent; color:#fff
+  }
+  @media (max-width:900px){
+    .menu-btn{display:block}
+    .nav-wrap{position:absolute; top:64px; left:0; right:0; display:none; background:rgba(18,18,20,.98); border-bottom:1px solid rgba(255,255,255,.08);}
+    .nav{flex-direction:column; align-items:stretch; gap:0; padding:10px 16px;}
+    .nav > li > a, .nav > li > button{padding:12px 6px; width:100%; justify-content:space-between}
+    .dropdown{position:static; display:none; margin:6px 0 10px 0; background:rgba(22,22,24,.98);}
+    .dropdown a{padding:10px 12px}
+    .nav-wrap.open{display:block}
+    .has-sub.open > .dropdown{display:block}
+  }
+
+  /* month pager */
+.cal-nav{display:grid;grid-template-columns:auto 1fr auto;align-items:stretch;gap:8px}
+.cal-arrow{background:#0b4f46;color:#fff;border:0;border-radius:4px;padding:0 10px;font-weight:800;cursor:pointer}
+
+/* Make the calendar month arrows smaller & circular */
+.cal-nav{
+  display:grid;
+  grid-template-columns:32px 1fr 32px;  /* narrow arrow columns */
+  align-items:center;
+  gap:6px;
+}
+
+.cal-arrow{
+  width:28px;
+  height:28px;
+  padding:0;
+  border-radius:50%;
+  background:#0b4f46;
+  color:#fff;
+  font-weight:800;
+  font-size:12px;          /* smaller chevron */
+  line-height:28px;        /* center the glyph */
+  cursor:pointer;
+}
+
+.cal-arrow:focus{ outline:2px solid #f2c14e; outline-offset:2px; }
+
+
+
+  /* FOOTER — copied intact */
+  .site-footer{position:relative; padding:60px 0 26px; background:linear-gradient(180deg, #181a1d 0%, #141518 100%); border-top:1px solid rgba(255,255,255,.1); color:var(--muted); overflow:hidden; margin-top:40px;}
+  .site-footer::before{content:""; position:absolute; inset:0; background-image:url('assets/sentinel_logo_1.png'); background-repeat:no-repeat; background-position:92% 20%; background-size:340px; opacity:.06; filter:grayscale(100%); pointer-events:none;}
+  .footer-grid{display:grid; gap:32px; grid-template-columns:1.2fr 1fr 1fr; align-items:start; position:relative; z-index:1;}
+  .footer-brand h4{margin:.4rem 0 .2rem; font-size:1.25rem; letter-spacing:.08em; text-transform:uppercase; color:#fff;}
+  .footer-tag{margin:0 0 .8rem; color:var(--muted)}
+  .footer-logo{width:58px; height:58px; border-radius:50%; background:url('assets/sent_lighthouse.png') center/contain no-repeat, radial-gradient(transparent,transparent); box-shadow:0 8px 22px rgba(0,0,0,.28);}
+  .footer-contact{display:flex; flex-direction:column; gap:8px; margin-top:10px}
+  .contact-row{display:inline-flex; align-items:center; gap:10px; color:#d7d7d7; opacity:.95;}
+  .contact-row:hover{opacity:1}
+  .contact-row svg{width:18px; height:18px; fill:currentColor; opacity:.95}
+  .footer-col h5{margin:.2rem 0 .6rem; font-size:1rem; letter-spacing:.14em; text-transform:uppercase; color:#fff;}
+  .footer-list{list-style:none; margin:0 0 12px 0; padding:0}
+  .footer-list li{margin:.25rem 0}
+  .footer-links{list-style:none; padding:0; margin:0}
+  .footer-links li{margin:.35rem 0}
+  .footer-links a{color:#d7d7d7}
+  .footer-links a:hover{color:#fff}
+  .social{display:flex; gap:10px; margin-top:12px}
+  .social a{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.22); transition:transform .2s ease, background .2s ease, border-color .2s ease;}
+  .social a:hover{transform:translateY(-2px); background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.32)}
+  .social svg{width:18px; height:18px; fill:#fff; opacity:.95}
+  .footer-bottom{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; gap:12px; color:#c9c9c9;}
+  .footer-bottom .dev a{color:var(--accent); font-weight:800}
+  .footer-bottom .dev a:hover{text-decoration:underline}
+
+  @media (max-width: 700px){
+    .footer-grid{ grid-template-columns: 1fr; gap: 18px; }
+    .footer-logo{ width:48px; height:48px; }
+    .site-footer .container{ padding: 0 16px; }
+    .contact-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .site-footer a, .site-footer li, .site-footer p{ overflow-wrap:anywhere; word-break:break-word; }
+    .footer-bottom{ flex-direction:column; align-items:flex-start; gap:8px; }
+  }
+  </style>
+
+  <!-- ===== Booking page styles (calendars + form only) ===== -->
+  <style>
+    .page-wrap{max-width:980px;margin:0 auto;padding:96px 20px 24px;} /* 96px for fixed header */
+    h1.book-title{font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin:0 0 14px}
+    .help-p{color:#333;line-height:1.6;margin:.25rem 0 1rem}
+    .note{font-size:.95rem;background:#fff7e1;border:1px solid #f5e3a6;border-radius:6px;padding:10px 12px;margin:12px 0}
+
+    .section-title{font-weight:800;margin:22px 0 10px}
+    .calendar-block{background:#fff;border:1px solid #e6e8eb;border-radius:4px;padding:10px 10px 6px}
+
+    .cal3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .cal{border:1px solid #e6e8eb;border-radius:4px;overflow:hidden;background:#fff}
+    .cal-head{background:#0b4f46;color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;height:28px;text-transform:uppercase;letter-spacing:.04em}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid #e6e8eb}
+    .cal-grid .dow{font-weight:700;font-size:.7rem;color:#2f3a45;background:#f0f2f4;border-right:1px solid #e6e8eb;border-bottom:1px solid #e6e8eb;padding:6px 0;text-align:center}
+    .cal-grid .dow:last-child{border-right:0}
+    .day{height:34px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e6e8eb;border-bottom:1px solid #e6e8eb;font-size:.85rem;cursor:pointer;background:#fff}
+    .day:nth-child(7n){border-right:0}
+    .day.mute{color:#b8bcc1;background:#fafbfc;cursor:default}
+    .day:hover{background:#eef7f5}
+    .day.sel{background:#d9efe9;border-color:#bfe2d9;box-shadow:inset 0 0 0 2px #34695e}
+
+    .legend{display:flex;gap:10px;align-items:center;font-size:.82rem;color:#53606c;margin:8px 0}
+    .legend .swatch{width:12px;height:12px;border-radius:2px;border:1px solid #e6e8eb;display:inline-block;margin-right:6px}
+    .swatch.sel{background:#d9efe9;border-color:#bfe2d9}
+
+    .slots{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 14px}
+    .slot{padding:8px 10px;border:1px solid #0b4f46;border-radius:3px;background:#fff;color:#0b4f46;font-weight:600;font-size:.82rem;cursor:pointer}
+    .slot:hover{background:#eef7f5}
+    .slot.sel{background:#f2c14e;border-color:#b38e2e;color:#1a1a1a}
+    .slot[disabled]{opacity:.45;cursor:not-allowed;background:#f1f3f5}
+
+    form{margin-top:18px}
+    label{font-size:.9rem;font-weight:600;display:block;margin:12px 0 6px}
+    input[type="text"],input[type="email"],input[type="tel"]{
+      width:100%;padding:10px 12px;border:1px solid #e6e8eb;border-radius:4px;background:#fff;font-size:.95rem
+    }
+    .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .captcha{display:flex;align-items:center;gap:10px;margin:6px 0}
+    .captcha-img{width:148px;height:36px;border:1px solid #e6e8eb;border-radius:4px;background:
+      repeating-linear-gradient(45deg, #eee, #eee 8px, #f8f8f8 8px, #f8f8f8 16px);
+      display:grid;place-items:center;font-weight:800;letter-spacing:.35em;color:#7b7f86}
+    .help-mini{font-size:.8rem;color:#6b6f76;margin:6px 0}
+    .btn{padding:10px 14px;border:1px solid #d6d8db;border-radius:4px;background:#fafafa;font-weight:700;cursor:pointer}
+    .btn:hover{background:#f0f2f4}
+    .btn-primary{background:#f2c14e;border-color:#b38e2e}
+    .error{margin-top:10px;border:1px solid #e66;border-radius:3px;background:#fff0f0;color:#a11;padding:8px 10px;display:none}
+
+    @media (max-width:900px){ .cal3{grid-template-columns:1fr} .row-2{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <!-- ===== Header (unchanged) ===== -->
+  <header class="topbar" role="banner">
+    <div class="inner">
+      <a class="brand" href="index.html" aria-label="Sentinel Capital Home">
+        <span class="mark"></span>
+        <img src="assets/sentinelWHITEtransparent.png" alt="Sentinel Capital Logo" style="height:42px; filter:brightness(1.3);">
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+      <div class="nav-wrap" id="primaryNav">
+        <ul class="nav" role="menubar" aria-label="Primary">
+          <li role="none"><a role="menuitem" href="index.html">Home</a></li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="About">
+              <a role="menuitem" href="approach.html">Strategy</a>
+              <a role="menuitem" href="team.html">Team</a>
+              <a role="menuitem" href="press.html">Press</a>
+            </div>
+          </li>
+
+          <li class="has-sub" role="none" aria-expanded="false">
+            <button role="menuitem" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></button>
+            <div class="dropdown" role="menu" aria-label="Portfolio">
+              <a role="menuitem" href="portfolio-multifamily.html">Multi-Family</a>
+              <a role="menuitem" href="portfolio-commercial.html">Commercial</a>
+            </div>
+          </li>
+
+          <li role="none"><a role="menuitem" href="contact.html">Contact</a></li>
+          <li role="none"><a role="menuitem" href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Booking content ===== -->
+  <main class="page-wrap">
+    <h1 class="book-title">BOOKING CALENDAR – ALLENPLACE, 450 CENTURY PARKWAY</h1>
+
+    <p class="help-p">To book the <strong>450 Century Parkway, AllenPlace</strong> location’s Deli Area, Conference Room or both:
+      1) click on the desired calendar date in each section, 2) select the time slot(s) you want to reserve below each
+      calendar, and 3) complete your contact details.</p>
+
+    <div class="note"><strong>Please note:</strong> To book multiple hours for the Conference Room (e.g., 6–8 pm),
+      click on all the related time blocks to reserve the full timeframe.</div>
+
+    <p class="help-p"><em>Looking for a month you don’t see?</em> Select dates beyond the 3 months displayed by clicking on the
+      upper-right triangle in the green calendar header. This will advance the calendar another month.</p>
+
+    <!-- Deli Area -->
+    <h3 class="section-title">Deli Area Booking</h3>
+    <div class="calendar-block" id="cal-deli"></div>
+    <div class="slots" data-for="deli"></div>
+
+    <!-- Conference Room -->
+    <h3 class="section-title">Conference Room Booking</h3>
+    <div class="calendar-block" id="cal-conf"></div>
+    <div class="slots" data-for="conf"></div>
+
+    <!-- Form (Formspree wired with fetch; only action/method + 2 hidden inputs added) -->
+    <form id="reserveForm" method="POST" action="https://formspree.io/f/YOUR_FORM_ID" novalidate>
+      <!-- Hidden fields that get filled on submit -->
+      <input type="hidden" name="deli_date"  id="hid_deli_date">
+      <input type="hidden" name="deli_times" id="hid_deli_times">
+      <input type="hidden" name="conf_date"  id="hid_conf_date">
+      <input type="hidden" name="conf_times" id="hid_conf_times">
+
+      <!-- Formspree helpers -->
+      <input type="hidden" name="_subject" value="New Booking Request – AllenPlace">
+      <input type="text" name="_gotcha" style="display:none">
+
+      <div class="row-2">
+        <div>
+          <label for="first">First Name*</label>
+          <input id="first" name="first" type="text" required>
+        </div>
+        <div>
+          <label for="last">Last Name*</label>
+          <input id="last" name="last" type="text" required>
+        </div>
+      </div>
+
+      <label for="company">Company Name</label>
+      <input id="company" name="company" type="text">
+
+      <label for="phone">Phone*</label>
+      <input id="phone" name="phone" type="tel" required>
+
+      <label for="email">Email*</label>
+      <input id="email" name="email" type="email" required>
+
+      <label>Security Code:</label>
+      <div class="captcha">
+        <div class="captcha-img" aria-hidden="true">E·MD·QG</div>
+        <div>
+          <div class="help-mini">Please enter the security code:</div>
+          <input type="text" name="captcha" style="width:160px">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Reserve Room(s)</button>
+      <div class="error" id="errBox">Please select a time slot.</div>
+    </form>
+  </main>
+
+  <!-- ===== Footer (unchanged) ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" aria-hidden="true"></div>
+        <h4>Sentinel Capital</h4>
+        <p class="footer-tag">Real Estate Investment &amp; Development</p>
+
+        <div class="footer-contact">
+          <a href="mailto:info@sentinelcap.com" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2Zm18 5.05V16a 2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4.95l10 6.25 10-6.25Z"/></svg>
+            info@sentinelcap.com
+          </a>
+          <a href="tel:+1-713-547-5100" class="contact-row">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.37c1.65.55 3.43.85 5.25.89a1.5 1.5 0 0 1 1.45 1.5v3.28A1.5 1.5 0 0 1 22.1 22C11.3 21.5 2.5 12.7 2 1.9A1.5 1.5 0 0 1 3.5.5H6.8A1.5 1.5 0 0 1 8.3 2c.04 1.82.34 3.6.9 5.25.2.52.08 1.11-.37 1.5l-2.23 2.05Z"/></svg>
+            (713) 547-5100
+          </a>
+        </div>
+
+        <div class="social">
+          <a href="https://www.linkedin.com/company/sentinel-capital-llc/posts/?feedView=all" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5Zm.52 6H2v12h3.5V9.5ZM13 9.3c-2.08 0-3.5 1.14-3.5 3.05V21H13v-6c0-1.01.73-1.69 1.8-1.69 1.02 0 1.7.68 1.7 1.69V21H20v-7.03C20 10.92 18.52 9.3 16.3 9.3 15 9.3 13.94 9.9 13.4 10.8h-.04V9.5H13Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Offices</h5>
+        <ul class="footer-list">
+          <li>20475 State Hwy 249 • Suite 100</li>
+          <li>Houston, TX 77070</li>
+          <li><a href="tel:+1-713-547-5100">(713) 547-5100</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><em>Proudly Texas born, based, and focused.</em></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul class="footer-links">
+          <li><a href="approach.html">Approach</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="press.html">Press</a></li>
+          <li><a href="portfolio-multifamily.html">Multi-Family</a></li>
+          <li><a href="portfolio-commercial.html">Commercial</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2025 Sentinel Capital. All rights reserved.</div>
+      <div class="dev">Developed by <a href="https://can-ercan.com/" target="_blank" rel="noopener">Can Ercan</a> </div>
+    </div>
+  </footer>
+
+  <!-- ===== Minimal JS: mobile nav (copied from index) ===== -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navWrap = document.getElementById('primaryNav');
+    const subParents = Array.from(document.querySelectorAll('.has-sub'));
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = navWrap.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    subParents.forEach(parent => {
+      const trigger = parent.querySelector('button');
+      trigger?.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          e.preventDefault();
+          const open = parent.classList.toggle('open');
+          parent.setAttribute('aria-expanded', open ? 'true' : 'false');
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navWrap.contains(e.target) && e.target !== menuBtn && navWrap.classList.contains('open')) {
+        navWrap.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        subParents.forEach(p => {
+          p.classList.remove('open');
+          p.setAttribute('aria-expanded','false');
+        });
+      }
+    });
+  </script>
+
+  <!-- ===== Booking JS (calendars + submit payload) ===== -->
+  <script>
+  (function(){
+    // Utils
+    const fmt = (d) => d.toISOString().slice(0,10);
+    const startOfMonth = (y,m)=> new Date(y,m,1);
+    const endOfMonth   = (y,m)=> new Date(y,m+1,0);
+    const addMonths = (date, n) => { const d=new Date(date); d.setMonth(d.getMonth()+n); return d; };
+    const DOW = ["SU","MO","TU","WE","TH","FR","SA"];
+
+    // how far each calendar is offset from "today" in months (in 3-month pages)
+const viewOffset = { deli: 0, conf: 0 };
+
+function renderCal3(container, stateKey){
+  const wrap = document.getElementById(container);
+  wrap.innerHTML = `
+    <div class="cal-nav">
+      <button type="button" class="cal-arrow prev" aria-label="Previous months">◀</button>
+      <div class="cal3" role="group" aria-label="3-month calendar"></div>
+      <button type="button" class="cal-arrow next" aria-label="Next months">▶</button>
+    </div>
+    <div class="legend"><span class="swatch sel"></span>Selected date</div>
+  `;
+  const grid = wrap.querySelector('.cal3');
+
+  // render the 3 months starting from (today + viewOffset)
+  function drawMonths(){
+    grid.innerHTML = '';
+    const today = new Date();
+    const base  = addMonths(new Date(today.getFullYear(), today.getMonth(), 1), viewOffset[stateKey]);
+    for(let i=0;i<3;i++){ grid.appendChild(renderMonth(addMonths(base,i), stateKey)); }
+
+    // re-highlight previously selected date (if it’s in view)
+    const sel = state[stateKey].date;
+    if(sel){
+      grid.querySelectorAll(`.day[data-date="${sel}"]`).forEach(el=>{
+        el.classList.add('sel');
+        el.dataset[stateKey] = '1';
+      });
+    }
+  }
+
+  // nav buttons (advance by 3 months per click)
+  wrap.querySelector('.prev').addEventListener('click', ()=>{ viewOffset[stateKey]-=3; drawMonths(); });
+  wrap.querySelector('.next').addEventListener('click', ()=>{ viewOffset[stateKey]+=3; drawMonths(); });
+
+  drawMonths();
+}
+
+
+    function renderMonth(refDate, stateKey){
+      const y = refDate.getFullYear();
+      const m = refDate.getMonth();
+      const cal = document.createElement('div');
+      cal.className = 'cal';
+      const monthName = refDate.toLocaleString('default',{month:'long'});
+      cal.innerHTML = `
+        <div class="cal-head">${monthName} ${y}</div>
+        <div class="cal-grid"></div>
+      `;
+      const grid = cal.querySelector('.cal-grid');
+
+      // DOW row
+      for(const label of DOW){
+        const c = document.createElement('div');
+        c.className = 'dow';
+        c.textContent = label;
+        grid.appendChild(c);
+      }
+
+      const firstDay = startOfMonth(y,m);
+      const lastDay  = endOfMonth(y,m);
+      const offset = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+
+      for(let i=0;i<offset;i++){
+        const cell = document.createElement('div');
+        cell.className = 'day mute';
+        grid.appendChild(cell);
+      }
+
+      for(let d=1; d<=daysInMonth; d++){
+        const cell = document.createElement('div');
+        cell.className = 'day';
+        cell.textContent = d;
+        const date = new Date(y,m,d);
+        cell.dataset.date = fmt(date);
+
+        cell.addEventListener('click', ()=>{
+          selectDate(stateKey, cell.dataset.date);
+
+          // clear previous selections in this group
+          document.querySelectorAll(`.day.sel[data-${stateKey}]`).forEach(el=>{
+            el.classList.remove('sel');
+            delete el.dataset[stateKey];
+          });
+
+          // mark all same-date cells as selected for this stateKey
+          document.querySelectorAll(`.day[data-date="${cell.dataset.date}"]`).forEach(el=>{
+            el.classList.add('sel');
+            el.dataset[stateKey] = '1';
+          });
+        });
+
+        grid.appendChild(cell);
+      }
+
+      const totalCells = offset + daysInMonth;
+      const pad = (7 - (totalCells % 7)) % 7;
+      for(let i=0;i<pad;i++){
+        const cell = document.createElement('div');
+        cell.className = 'day mute';
+        grid.appendChild(cell);
+      }
+      return cal;
+    }
+
+    // State
+    const state = { deli:{date:null,times:[]}, conf:{date:null,times:[]} };
+
+    function selectDate(kind, iso){
+      state[kind].date = iso;
+      state[kind].times = []; // reset times on date change
+      renderSlots(kind);
+    }
+
+    function toggleTime(kind, t, btn){
+      const list = state[kind].times;
+      const ix = list.indexOf(t);
+      if(ix>-1){ list.splice(ix,1); btn.classList.remove('sel'); }
+      else { list.push(t); btn.classList.add('sel'); }
+    }
+
+    // Slots
+    const deliTimes = ["06:00 PM"];
+    const confTimes = ["07:00 AM","08:00 AM","09:00 AM","10:00 AM","11:00 AM","12:00 PM","01:00 PM","02:00 PM","03:00 PM","04:00 PM","05:00 PM","06:00 PM","07:00 PM"];
+
+    function renderSlots(kind){
+      const container = document.querySelector(`.slots[data-for="${kind}"]`);
+      container.innerHTML = '';
+      const times = (kind==='deli')? deliTimes : confTimes;
+      times.forEach(t=>{
+        const b = document.createElement('button');
+        b.type='button';
+        b.className='slot';
+        b.textContent=t;
+        if(!state[kind].date){ b.disabled = true; }
+        b.addEventListener('click', ()=> toggleTime(kind,t,b));
+        container.appendChild(b);
+      });
+    }
+
+    renderCal3('cal-deli','deli');
+    renderCal3('cal-conf','conf');
+    renderSlots('deli');
+    renderSlots('conf');
+
+    // Submit: validate + populate hidden fields + send to Formspree with fetch
+    const form = document.getElementById('reserveForm');
+    const err  = document.getElementById('errBox');
+
+    form.addEventListener('submit', async (e)=>{
+      // Fill hidden fields for the backend/email
+      document.getElementById('hid_deli_date').value  = state.deli.date || '';
+      document.getElementById('hid_deli_times').value = state.deli.times.join(', ');
+      document.getElementById('hid_conf_date').value  = state.conf.date || '';
+      document.getElementById('hid_conf_times').value = state.conf.times.join(', ');
+
+      // Require at least one slot
+      const picked = state.deli.times.length + state.conf.times.length;
+      if(picked===0){
+        e.preventDefault();
+        err.style.display='block';
+        err.textContent='Please select a time slot.';
+        return;
+      } else {
+        err.style.display='none';
+      }
+
+      // Send via fetch to Formspree
+      e.preventDefault();
+      const submitBtn = form.querySelector('[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : null;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+
+        if (res.ok) {
+          alert('Thanks! Your booking request was sent successfully. We’ll confirm your time shortly.');
+          form.reset();
+          // also clear selections
+          state.deli = {date:null,times:[]};
+          state.conf = {date:null,times:[]};
+          document.querySelectorAll('.day.sel').forEach(d=>d.classList.remove('sel'));
+          renderSlots('deli'); renderSlots('conf');
+        } else {
+          const data = await res.json().catch(()=> ({}));
+          const msg = (data && data.errors && data.errors[0] && data.errors[0].message)
+            ? data.errors[0].message
+            : 'There was a problem sending your request. Please try again.';
+          alert(msg);
+        }
+      } catch (err) {
+        alert('Network error. Please check your connection and try again.');
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
