@@ -273,7 +273,7 @@
   .footer-list li{margin:.25rem 0}
   .footer-links{list-style:none; padding:0; margin:0}
   .footer-links li{margin:.35rem 0}
-  .footer-links a{color:#d7d7d7}
+  .footer-links a{color:#d9d9d7}
   .footer-links a:hover{color:#fff}
   .social{display:flex; gap:10px; margin-top:12px}
   .social a{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(255,255,255,.22); transition:transform .2s ease, background .2s ease, border-color .2s ease;}
@@ -336,22 +336,28 @@
   <section class="contact-wrap">
 
     <!-- Left: form -->
-    <form class="contact-form glass reveal" id="contactForm">
+    <!-- Added Formspree (no layout changes) -->
+    <form class="contact-form glass reveal" id="contactForm" action="https://formspree.io/f/xwprqjpy" method="POST" novalidate>
       <div class="eyebrow" style="color:var(--accent); letter-spacing:.3em; text-transform:uppercase; font-size:.8rem">We’d love to hear from you</div>
       <p class="lead">Send us a message and we’ll get right back to you.</p>
 
       <div class="row-2">
-        <input class="field" id="first" placeholder="First Name" required />
-        <input class="field" id="last" placeholder="Last Name" required />
+        <input class="field" id="first" name="firstName" placeholder="First Name" autocomplete="given-name" required />
+        <input class="field" id="last"  name="lastName"  placeholder="Last Name"  autocomplete="family-name" required />
       </div>
       <div class="row-2">
-        <input class="field" id="email" type="email" placeholder="Email Address" required />
-        <input class="field" id="phone" placeholder="Phone (optional)" />
+        <input class="field" id="email" name="email" type="email" placeholder="Email Address" autocomplete="email" required />
+        <input class="field" id="phone" name="phone" placeholder="Phone (optional)" autocomplete="tel" />
       </div>
-      <input class="field" id="subject" placeholder="Subject" required />
-      <textarea class="area" id="message" placeholder="Your message…"></textarea>
+      <input class="field" id="subject" name="subject" placeholder="Subject" required />
+      <textarea class="area" id="message" name="message" placeholder="Your message…" required></textarea>
 
-      <button class="send" type="submit">Send</button>
+      <!-- Spam trap + helpful defaults (invisible, no layout impact) -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+      <input type="hidden" name="_template" value="table" />
+
+      <button class="send" type="submit" id="sendBtn">Send</button>
+      <p id="formStatus" class="muted" style="margin:6px 0 0; display:none"></p>
     </form>
 
     <!-- Right: contact card -->
@@ -468,7 +474,7 @@
     </div>
   </footer>
 
-  <!-- Inline scripts: nav + reveal + mailto -->
+  <!-- Inline scripts: nav + reveal + Formspree submit -->
   <script>
     // Mobile menu + dropdowns
     const menuBtn = document.getElementById('menuBtn');
@@ -508,23 +514,56 @@
       document.querySelectorAll('.reveal').forEach(el => requestAnimationFrame(() => el.classList.add('show')));
     });
 
-    // Mailto submit
-    const f = document.getElementById('contactForm');
-    f.addEventListener('submit', (e) => {
+    // Formspree AJAX submit (replaces mailto; preserves layout)
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function setStatus(msg, ok = true) {
+      statusEl.textContent = msg;
+      statusEl.style.display = 'block';
+      statusEl.style.color = ok ? '#a8e6cf' : '#ffb3b3';
+    }
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name   = `${document.getElementById('first').value} ${document.getElementById('last').value}`.trim();
-      const email  = document.getElementById('email').value;
-      const phone  = document.getElementById('phone').value;
-      const subj   = document.getElementById('subject').value || 'Contact';
-      const body   =
-`Name: ${name}
-Email: ${email}
-Phone: ${phone}
 
-Message:
-${document.getElementById('message').value}`;
+      if (!form.checkValidity()) {
+        setStatus('Please complete all required fields.', false);
+        return;
+      }
 
-      window.location.href = `mailto:info@sentinelcapitalre.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+      const data = new FormData(form);
+      const first = (form.elements.firstName?.value || '').trim();
+      const last  = (form.elements.lastName?.value || '').trim();
+      const fullName = `${first} ${last}`.trim();
+      if (fullName) data.append('name', fullName);
+
+      sendBtn.disabled = true;
+      sendBtn.style.opacity = '0.7';
+      setStatus('Sending…', true);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          setStatus('Thanks! Your message has been sent.');
+          form.reset();
+        } else {
+          const json = await res.json().catch(() => ({}));
+          const msg = (json && json.errors && json.errors[0] && json.errors[0].message) || 'Something went wrong. Please try again.';
+          setStatus(msg, false);
+        }
+      } catch (err) {
+        setStatus('Network error. Please check your connection and try again.', false);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.style.opacity = '1';
+      }
     });
   </script>
 </body>
