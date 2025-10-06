@@ -66,20 +66,7 @@
   img{max-width:100%;display:block}
   .container{max-width:var(--max);margin:0 auto;padding:0 20px}
 
-  /* === Booking banner (added) === */
-  body.has-booking-banner{ padding-top:36px; } /* only offsets for the thin banner, not the header */
-  .booking-banner{
-    position:fixed; top:0; left:0; right:0; height:36px;
-    z-index:80;
-    background:#054540; color:#e8fbf8;
-    font:600 14px/36px var(--font-body);
-  }
-  .booking-banner .container{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-  }
-  .booking-banner a{ color:#ffd35a; text-decoration:underline; text-underline-offset:2px; }
-  .booking-banner .cta-right{ color:#ffffff; opacity:.9; }
-  .booking-banner .cta-right:hover{ opacity:1; }
+ 
 
   /* Titles use Open Sauce Heavy */
   h1,h2,h3,.title,.logo-text,.cb-title,.stat .num{font-family:var(--font-title); letter-spacing:.02em}
@@ -377,21 +364,48 @@
   .stripe-white{background:var(--bg) !important;}
   .stripe-soft{background:var(--bg-soft) !important;}
 
-  /* --- Reserve banner overlap fix --- */
-:root { --reserve-banner-h: 36px; } /* banner height */
+/* === Booking banner (mobile-safe, dynamic height) === */
+:root { --banner-h: 0px; } /* will be set by JS */
 
-/* keep banner on very top */
-.reserve-banner{
+.booking-banner{
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  height: var(--reserve-banner-h);
+  background:#054540; 
+  color:#e8fbf8;
+  font:600 14px/1.35 var(--font-body);
+  padding:6px 0;             /* no fixed height; allows wrapping */
 }
 
-/* push the fixed header below the banner */
-.topbar{
-  top: var(--reserve-banner-h) !important; /* overrides inset/top from earlier rule */
+.booking-banner a{ 
+  color:#ffd35a; 
+  text-decoration:underline; 
+  text-underline-offset:2px; 
 }
+.booking-banner .cta-right{ color:#ffffff; opacity:.9; }
+.booking-banner .cta-right:hover{ opacity:1; }
+
+.booking-banner .container{
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
+  gap:12px;
+}
+
+/* stack on small screens */
+@media (max-width:520px){
+  .booking-banner .container{
+    flex-direction:column; 
+    align-items:flex-start; 
+    gap:4px;
+  }
+  .booking-banner .cta-right{ align-self:flex-end; }
+}
+
+/* push header and page down by actual banner height */
+.topbar{ top: var(--banner-h) !important; }
+body.has-booking-banner{ padding-top: var(--banner-h); }
+
 
   </style>
 </head>
@@ -778,5 +792,17 @@
     });
   </script>
   <script src="animation_index.js" defer></script>
+  <script>
+  function setBannerHeight(){
+    const b = document.querySelector('.booking-banner');
+    const h = b ? b.offsetHeight : 0;
+    document.documentElement.style.setProperty('--banner-h', h + 'px');
+  }
+  window.addEventListener('load', setBannerHeight);
+  window.addEventListener('resize', setBannerHeight);
+  // in case fonts/text reflow after load
+  setTimeout(setBannerHeight, 200);
+</script>
+
 </body>
 </html>
