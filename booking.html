@@ -279,6 +279,10 @@
       <input type="hidden" name="_subject" value="New Booking Request – AllenPlace">
       <input type="text" name="_gotcha" style="display:none">
 
+      <!-- (NEW) Email readability only: location + pretty message body -->
+      <input type="hidden" name="location" id="hid_location" value="AllenPlace – 450 Century Parkway">
+      <input type="hidden" name="message"  id="hid_message">
+
       <div class="row-2">
         <div>
           <label for="first">First Name*</label>
@@ -563,7 +567,7 @@ function renderCal3(container, stateKey){
     renderSlots('deli');
     renderSlots('conf');
 
-    // Submit: validate + populate hidden fields + send to Formspree with fetch
+    // Submit: validate + populate hidden fields + send to Formspree
     const form = document.getElementById('reserveForm');
     const err  = document.getElementById('errBox');
 
@@ -584,6 +588,47 @@ function renderCal3(container, stateKey){
       } else {
         err.style.display='none';
       }
+
+      /* ---- Email readability: build nice Subject + Body (message) ---- */
+      const fmtNice = (iso) =>
+        iso ? new Date(iso + 'T00:00:00').toLocaleDateString(undefined,
+          { weekday:'short', year:'numeric', month:'short', day:'numeric' }) : '';
+
+      const first = (form.first?.value || '').trim();
+      const last  = (form.last?.value  || '').trim();
+      const company = (form.company?.value || '').trim();
+      const phone = (form.phone?.value || '').trim();
+      const email = (form.email?.value || '').trim();
+
+      const deliSection = state.deli.date ? [
+        'DELI AREA',
+        `Date:  ${fmtNice(state.deli.date)}`,
+        `Times: ${state.deli.times.join(', ')}`
+      ].join('\n') : '';
+
+      const confSection = state.conf.date ? [
+        'CONFERENCE ROOM',
+        `Date:  ${fmtNice(state.conf.date)}`,
+        `Times: ${state.conf.times.join(', ')}`
+      ].join('\n') : '';
+
+      const headerBlock = [
+        'AllenPlace – 450 Century Parkway',
+        `Requester: ${[first, last].filter(Boolean).join(' ') || '—'}${company ? ` (${company})` : ''}`,
+        `Phone: ${phone || '—'}`,
+        `Email: ${email || '—'}`
+      ].join('\n');
+
+      const prettyBody = [headerBlock, '', deliSection, confSection].filter(Boolean).join('\n\n');
+      const msgInput = document.getElementById('hid_message');
+      if (msgInput) msgInput.value = prettyBody;
+
+      const subjectInput = form.querySelector('input[name="_subject"]');
+      const firstDate = state.deli.date || state.conf.date || '';
+      if (subjectInput) {
+        subjectInput.value = `Booking — AllenPlace — ${fmtNice(firstDate)} — ${[first, last].filter(Boolean).join(' ') || 'Guest'}`;
+      }
+      /* ---------------------------------------------------------------- */
 
       // Send via fetch to Formspree
       e.preventDefault();
