@@ -135,6 +135,17 @@
     .hero__eyebrow{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:1.5rem}
     .hero__title{font-size:3.2rem;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 0;color:#fff}
 
+    /* ===== Summary stats band ===== */
+    .stats-band{position:relative; background:url('assets/image004.png') center/cover no-repeat; padding:40px 0}
+    .stats-band::before{content:""; position:absolute; inset:0; background:rgba(52, 105, 94, 1.0)}
+    .stats-band .inner{position:relative; z-index:1}
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    .stat{text-align:center; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:18px; box-shadow:0 10px 24px rgba(0,0,0,.26)}
+    .stat .num{font-weight:900; font-size:2rem; color:#fff; font-family:var(--font-title)}
+    .stat .label{color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.75rem; margin-top:6px}
+    @media (max-width:900px){ .stats{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:700px){ .stats{grid-template-columns:1fr} }
+
     /* ===== Section & Intro ===== */
     .section{padding:72px 0}
     .portfolio-wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
@@ -289,6 +300,18 @@
     <div class="hero__content container">
       <!-- <div class="hero__eyebrow">Portfolio</div> -->
       <h1 class="hero__title">Commercial</h1>
+    </div>
+  </section>
+
+  <!-- ===== Summary Stats ===== -->
+  <section class="stats-band">
+    <div class="container inner">
+      <div class="stats">
+        <div class="stat"><div class="num">500,000</div><div class="label">SF under Management</div></div>
+        <div class="stat"><div class="num">$110M</div><div class="label">Assets under Management</div></div>
+        <div class="stat"><div class="num">1.2M</div><div class="label">SF Transacted</div></div>
+        <div class="stat"><div class="num">+$220M</div><div class="label">Commercial Capitalization History</div></div>
+      </div>
     </div>
   </section>
 

@@ -134,6 +134,17 @@
     .hero__eyebrow{color:var(--accent);letter-spacing:.35em;text-transform:uppercase;font-size:1.5rem}
     .hero__title{font-size:3.2rem;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0 0; color:#fff}
 
+    /* ===== Summary stats band ===== */
+    .stats-band{position:relative; background:url('assets/image004.png') center/cover no-repeat; padding:40px 0}
+    .stats-band::before{content:""; position:absolute; inset:0; background:rgba(52, 105, 94, 1.0)}
+    .stats-band .inner{position:relative; z-index:1}
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+    .stat{text-align:center; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:18px; box-shadow:0 10px 24px rgba(0,0,0,.26)}
+    .stat .num{font-weight:900; font-size:2rem; color:#fff; font-family:var(--font-title)}
+    .stat .label{color:var(--muted); letter-spacing:.12em; text-transform:uppercase; font-size:.75rem; margin-top:6px}
+    @media (max-width:900px){ .stats{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:700px){ .stats{grid-template-columns:1fr} }
+
     /* ===== Portfolio grid ===== */
     .section{padding:72px 0}
     .portfolio-wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
@@ -277,6 +288,18 @@
     </div>
   </section>
 
+  <!-- ===== Summary Stats ===== -->
+  <section class="stats-band">
+    <div class="container inner">
+      <div class="stats">
+        <div class="stat"><div class="num">2,000</div><div class="label">Units under Management</div></div>
+        <div class="stat"><div class="num">$290M</div><div class="label">Assets under Management</div></div>
+        <div class="stat"><div class="num">4,500</div><div class="label">Units Transacted</div></div>
+        <div class="stat"><div class="num">+$520M</div><div class="label">Multifamily Capitalization History</div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Grid ===== -->
   <section class="section">
     <div class="portfolio-wrap">
@@ -326,7 +349,7 @@
           <div class="body">
             <h3>Dawson at Stratford Apartments</h3>
             <div class="addr">Houston, TX</div>
-            <div class="addr">73 units • 1964/2021</div>
+            <div class="addr">62 units • 1964/2021</div>
             <div class="cta-row">
               <a class="cta-mini" href="mf-dawson-stratford.html">View</a>
             </div>
@@ -457,6 +480,38 @@
             <div class="addr">168 units • 1982</div>
             <div class="cta-row">
               <a class="cta-mini" href="mf-elm-creek.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Avondale-Crocker Apartments -->
+        <article class="tile reveal" style="transition-delay:.24s">
+          <div class="thumb">
+            <span class="badge">Houston, TX</span>
+            <img src="assets/avondale-crocker-1.jpg" alt="Avondale-Crocker Apartments">
+          </div>
+          <div class="body">
+            <h3>Avondale-Crocker Apartments</h3>
+            <div class="addr">Houston, TX</div>
+            <div class="addr">11 units • 1920</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="mf-avondale-crocker.html">View</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Eagle Crest Apartments -->
+        <article class="tile reveal" style="transition-delay:.26s">
+          <div class="thumb">
+            <span class="badge">Atascocita, TX</span>
+            <img src="assets/eagle-crest-1.jpg" alt="Eagle Crest Apartments">
+          </div>
+          <div class="body">
+            <h3>Eagle Crest Apartments</h3>
+            <div class="addr">Atascocita, TX</div>
+            <div class="addr">200 units • 1999</div>
+            <div class="cta-row">
+              <a class="cta-mini" href="mf-eagle-crest.html">View</a>
             </div>
           </div>
         </article>
